@@ -54,9 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
     new ThemeManager();
 });
 
-// ============================================
-// MENU BURGER MOBILE
-// ============================================
+
 
 const burgerMenu = document.getElementById('burger-menu');
 const navMenu = document.querySelector('.nav-menu');
@@ -124,3 +122,54 @@ in
 if (document.getElementById('typing-code')) {
     typeCode();
 }
+
+// ============================================
+// MENU BURGER MOBILE
+// ============================================
+
+document.addEventListener('DOMContentLoaded', () => {
+    const burgerBtn = document.getElementById('burger-menu');
+    const nav = document.querySelector('.nav-links');
+
+    if (burgerBtn && nav) {
+        // Clic sur le burger
+        burgerBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+
+            const isOpen = burgerBtn.classList.contains('active');
+
+            if (isOpen) {
+                // Fermer le menu
+                burgerBtn.classList.remove('active');
+                nav.classList.remove('active');
+                document.body.style.overflow = '';
+            } else {
+                // Ouvrir le menu
+                burgerBtn.classList.add('active');
+                nav.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+        });
+
+        // Fermer le menu en cliquant sur un lien
+        const navLinks = nav.querySelectorAll('a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                burgerBtn.classList.remove('active');
+                nav.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+        });
+
+        // Fermer le menu en cliquant en dehors
+        document.addEventListener('click', (e) => {
+            if (!nav.contains(e.target) && !burgerBtn.contains(e.target)) {
+                burgerBtn.classList.remove('active');
+                nav.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+    }
+});
+

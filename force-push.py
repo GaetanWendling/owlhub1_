@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-force_push.py
-Force le push depuis owlhub_
+force_push_hibwho.py
+Push avec le nouveau username hibwho
 """
 
 import subprocess
@@ -12,7 +12,6 @@ import time
 BASE_DIR = Path(r"C:\Users\gaeta\OneDrive\Bureau\owlhub_")
 
 def run_cmd(cmd, description):
-    """Exécute une commande Git"""
     print(f"\n{'='*50}")
     print(f"🔧 {description}")
     print(f"{'='*50}")
@@ -31,37 +30,32 @@ def run_cmd(cmd, description):
 
     return result.returncode == 0
 
-print("🦉 FORCE PUSH - owlhub_")
+print("🦉 DÉPLOIEMENT - hibwho/owlhub1_")
 print("="*50)
 
-# 1. Vérifier l'état
-run_cmd("git status", "État du dépôt")
+# 1. Ajouter les fichiers
+run_cmd("git add .", "Ajout des fichiers")
 
-# 2. Ajouter tous les fichiers
-if run_cmd("git add .", "Ajout des fichiers"):
-    print("✅ Fichiers ajoutés")
-
-# 3. Commit
+# 2. Commit
 timestamp = time.strftime("%Y-%m-%d %H:%M:%S")
-commit_msg = f"Force update: rouge + header + burger + code M - {timestamp}"
+commit_msg = f"Fix mobile: viewport + burger menu - {timestamp}"
+run_cmd(f'git commit -m "{commit_msg}" --allow-empty', "Commit")
 
-if run_cmd(f'git commit -m "{commit_msg}" --allow-empty', "Commit"):
-    print("✅ Commit créé")
-
-# 4. Force push
-print("\n" + "="*50)
-print("🚀 FORCE PUSH vers GitHub")
-print("="*50)
-
+# 3. Push vers le nouveau dépôt
 if run_cmd("git push origin main --force", "Push forcé"):
     print("\n✅ DÉPLOIEMENT RÉUSSI !")
-    print("\n⏱️ Attendre 2-3 minutes pour la mise à jour")
-    print("\n🌐 URL du site :")
-    print("   https://gaetanwendling.github.io/owlhub1_/")
-    print("\n💡 VIDER LE CACHE :")
-    print("   • Ctrl + Shift + R")
+    print("\n⏱️ Attendre 2-3 minutes pour GitHub Pages")
+    print("\n🌐 NOUVELLE URL DU SITE :")
+    print("   https://hibwho.github.io/owlhub1_/")
+    print("\n💡 TESTER :")
+    print("   • F12 → Toggle device toolbar")
+    print("   • Cliquer sur le burger (☰)")
+    print("   • Vider le cache : Ctrl + Shift + R")
 else:
-    print("\n❌ ÉCHEC - Tentative alternative...")
-    run_cmd("git push origin main --force-with-lease", "Push avec --force-with-lease")
+    print("\n❌ ÉCHEC DU PUSH")
+    print("\n🔍 Vérifications à faire :")
+    print("   1. Le dépôt existe : https://github.com/hibwho/owlhub1_")
+    print("   2. GitHub Pages est activé (Settings → Pages)")
+    print("   3. Branch : main, Folder : / (root)")
 
 print("\n🦉 Script terminé")
