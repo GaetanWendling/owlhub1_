@@ -1,28 +1,54 @@
-document.addEventListener('DOMContentLoaded', function() {
-    const statNumbers = document.querySelectorAll('.stat-value');
+/**
+ * stats.js
+ * Gestion des statistiques
+ */
 
-    const animateValue = (element, start, end, duration) => {
-        let startTimestamp = null;
-        const step = (timestamp) => {
-            if (!startTimestamp) startTimestamp = timestamp;
-            const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-            element.textContent = Math.floor(progress * (end - start) + start);
-            if (progress < 1) {
-                window.requestAnimationFrame(step);
+document.addEventListener('DOMContentLoaded', () => {
+
+    const stats = {
+        pageViews: 0,
+        uniqueVisitors: 0,
+
+        init() {
+            this.loadFromStorage();
+            this.trackPageView();
+            this.updateDisplay();
+        },
+
+        loadFromStorage() {
+            const stored = localStorage.getItem('owlhub_stats');
+            if (stored) {
+                const data = JSON.parse(stored);
+                this.pageViews = data.pageViews || 0;
+                this.uniqueVisitors = data.uniqueVisitors || 0;
             }
-        };
-        window.requestAnimationFrame(step);
+        },
+
+        saveToStorage() {
+            localStorage.setItem('owlhub_stats', JSON.stringify({
+                pageViews: this.pageViews,
+                uniqueVisitors: this.uniqueVisitors
+            }));
+        },
+
+        trackPageView() {
+            this.pageViews++;
+            if (!sessionStorage.getItem('owlhub_visitor')) {
+                this.uniqueVisitors++;
+                sessionStorage.setItem('owlhub_visitor', 'true');
+            }
+            this.saveToStorage();
+        },
+
+        updateDisplay() {
+            const pvEl = document.getElementById('stat-pageviews');
+            const vEl = document.getElementById('stat-visitors');
+
+            if (pvEl) pvEl.textContent = this.pageViews;
+            if (vEl) vEl.textContent = this.uniqueVisitors;
+        }
     };
 
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const target = parseInt(entry.target.getAttribute('data-target'));
-                animateValue(entry.target, 0, target, 2000);
-                observer.unobserve(entry.target);
-            }
-        });
-    });
-
-    stats.forEach(stat => observer.observe(stat));
+    stats.init();
+    console.log('✅ Stats module chargé');
 });

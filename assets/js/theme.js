@@ -50,7 +50,55 @@ class ThemeManager {
 }
 
 // Initialisation
-document.addEventListener('DOMContentLoaded', () => {
+
+    // ============================================
+    // NAVIGATION MOBILE BURGER
+    // ============================================
+    const initMobileNav = () => {
+        const burger = document.querySelector('.mobile-menu-toggle');
+        const mobileNav = document.querySelector('.mobile-nav');
+        const overlay = document.querySelector('.mobile-overlay');
+
+        if (!burger || !mobileNav) {
+            console.warn('⚠️ Éléments burger manquants');
+            return;
+        }
+
+        // Toggle menu
+        const toggleMenu = () => {
+            const isOpen = burger.classList.contains('active');
+
+            burger.classList.toggle('active');
+            mobileNav.classList.toggle('active');
+            if (overlay) overlay.classList.toggle('active');
+            document.body.style.overflow = isOpen ? '' : 'hidden';
+
+            console.log('🍔 Menu burger:', isOpen ? 'fermé' : 'ouvert');
+        };
+
+        // Event listeners
+        burger.addEventListener('click', toggleMenu);
+
+        if (overlay) {
+            overlay.addEventListener('click', toggleMenu);
+        }
+
+        // Fermer au clic sur un lien
+        mobileNav.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', toggleMenu);
+        });
+
+        // Fermer avec Escape
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && burger.classList.contains('active')) {
+                toggleMenu();
+            }
+        });
+
+        console.log('📱 Navigation mobile initialisée');
+    };
+
+    document.addEventListener('DOMContentLoaded', () => {
     new ThemeManager();
 });
 
@@ -127,7 +175,55 @@ if (document.getElementById('typing-code')) {
 // MENU BURGER MOBILE
 // ============================================
 
-document.addEventListener('DOMContentLoaded', () => {
+
+    // ============================================
+    // NAVIGATION MOBILE BURGER
+    // ============================================
+    const initMobileNav = () => {
+        const burger = document.querySelector('.mobile-menu-toggle');
+        const mobileNav = document.querySelector('.mobile-nav');
+        const overlay = document.querySelector('.mobile-overlay');
+
+        if (!burger || !mobileNav) {
+            console.warn('⚠️ Éléments burger manquants');
+            return;
+        }
+
+        // Toggle menu
+        const toggleMenu = () => {
+            const isOpen = burger.classList.contains('active');
+
+            burger.classList.toggle('active');
+            mobileNav.classList.toggle('active');
+            if (overlay) overlay.classList.toggle('active');
+            document.body.style.overflow = isOpen ? '' : 'hidden';
+
+            console.log('🍔 Menu burger:', isOpen ? 'fermé' : 'ouvert');
+        };
+
+        // Event listeners
+        burger.addEventListener('click', toggleMenu);
+
+        if (overlay) {
+            overlay.addEventListener('click', toggleMenu);
+        }
+
+        // Fermer au clic sur un lien
+        mobileNav.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', toggleMenu);
+        });
+
+        // Fermer avec Escape
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && burger.classList.contains('active')) {
+                toggleMenu();
+            }
+        });
+
+        console.log('📱 Navigation mobile initialisée');
+    };
+
+    document.addEventListener('DOMContentLoaded', () => {
     const burgerBtn = document.getElementById('burger-menu');
     const nav = document.querySelector('.nav-links');
 
