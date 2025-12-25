@@ -214,6 +214,28 @@ body {
 /* ============================================
    HERO SECTION
    ============================================ */
+   /* ============================================
+      PARTICLES.JS - Arrière-plan animé
+      ============================================ */
+   #particles-js {
+       position: absolute;
+       top: 0;
+       left: 0;
+       width: 100%;
+       height: 100%;
+       z-index: 0; /* Derrière tout le contenu */
+       pointer-events: none; /* Ne bloque pas les clics */
+   }
+
+   .hero {
+       position: relative; /* Nécessaire pour que particles-js soit positionné correctement */
+       overflow: hidden; /* Cache les particules qui débordent */
+   }
+
+   .hero-container {
+       position: relative;
+       z-index: 1; /* Au-dessus des particules */
+   }
 
 .hero {
     position: relative;

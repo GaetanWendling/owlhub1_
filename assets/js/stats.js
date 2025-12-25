@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
-    const stats = document.querySelectorAll('.stat-number');
+    const statNumbers = document.querySelectorAll('.stat-value');
 
     const animateValue = (element, start, end, duration) => {
         let startTimestamp = null;

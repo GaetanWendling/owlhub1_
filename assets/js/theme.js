@@ -1,70 +1,22 @@
-// theme.js - Gestion du thème clair/sombre
-class ThemeManager {
-    constructor() {
-        this.themeToggle = document.getElementById('theme-toggle');
-        this.currentTheme = localStorage.getItem('theme') || 'dark';
-
-        this.init();
-    }
-
-    init() {
-        // Appliquer le thème sauvegardé
-        this.applyTheme(this.currentTheme);
-
-        // Event listener sur le bouton
-        if (this.themeToggle) {
-            this.themeToggle.addEventListener('click', () => this.toggleTheme());
-        }
-    }
-
-    applyTheme(theme) {
-        document.documentElement.setAttribute('data-theme', theme);
-        localStorage.setItem('theme', theme);
-        this.currentTheme = theme;
-
-        // Changer l'image du hibou si présente
-        this.updateOwlImage(theme);
-    }
-
-    toggleTheme() {
-        const newTheme = this.currentTheme === 'dark' ? 'light' : 'dark';
-        this.applyTheme(newTheme);
-
-        // Animation du bouton
-        this.themeToggle.style.transform = 'rotate(360deg)';
-        setTimeout(() => {
-            this.themeToggle.style.transform = 'rotate(0deg)';
-        }, 300);
-    }
-
-    updateOwlImage(theme) {
-        const owlImages = document.querySelectorAll('.hero-owl, .page-owl, #page-owl');
-        owlImages.forEach(img => {
-            if (theme === 'dark') {
-                img.src = img.src.replace('owl_light.png', 'owl_dark.png');
-            } else {
-                img.src = img.src.replace('owl_dark.png', 'owl_light.png');
-            }
-        });
-    }
-}
-
-// Initialisation
-document.addEventListener('DOMContentLoaded', () => {
-    new ThemeManager();
-});
-
+// theme.js - Gestion du thème + Particles.js
 document.addEventListener('DOMContentLoaded', function() {
+    console.log('🎨 Theme.js chargé');
+
+    // ============================================
+    // GESTION DU THÈME SOMBRE/CLAIR
+    // ============================================
     const themeToggle = document.getElementById('theme-toggle');
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
     const savedTheme = localStorage.getItem('theme');
 
+    // Appliquer le thème sauvegardé ou préférence système
     if (savedTheme) {
         document.body.setAttribute('data-theme', savedTheme);
     } else if (prefersDark) {
         document.body.setAttribute('data-theme', 'dark');
     }
 
+    // Toggle du thème
     if (themeToggle) {
         themeToggle.addEventListener('click', function() {
             const currentTheme = document.body.getAttribute('data-theme');
@@ -72,22 +24,118 @@ document.addEventListener('DOMContentLoaded', function() {
 
             document.body.setAttribute('data-theme', newTheme);
             localStorage.setItem('theme', newTheme);
-        });
-    }
 
-    // Initialiser les particules si disponible
-    if (typeof particlesJS !== 'undefined') {
-        const theme = document.body.getAttribute('data-theme') || 'light';
-        const color = theme === 'dark' ? '#ff0000' : '#0066cc';
-
-        particlesJS('particles-js', {
-            particles: {
-                number: { value: 80 },
-                color: { value: color },
-                opacity: { value: 0.5 },
-                size: { value: 3 },
-                move: { enable: true, speed: 2 }
+            // Réinitialiser les particules avec la nouvelle couleur
+            if (typeof particlesJS !== 'undefined') {
+                initParticles();
             }
         });
     }
+
+    // ============================================
+    // INITIALISATION PARTICLES.JS
+    // ============================================
+    function initParticles() {
+        // VÉRIFICATION 1 : La bibliothèque est chargée ?
+        if (typeof particlesJS === 'undefined') {
+            console.error('❌ particles.js non chargé depuis le CDN');
+            return;
+        }
+
+        // VÉRIFICATION 2 : Le conteneur existe ?
+        const container = document.getElementById('particles-js');
+        if (!container) {
+            console.error('❌ #particles-js introuvable dans le DOM');
+            return;
+        }
+
+        console.log('✅ Initialisation de particles.js...');
+
+        // Couleur selon le thème
+        const theme = document.body.getAttribute('data-theme') || 'light';
+        const particleColor = theme === 'dark' ? '#ff0000' : '#0066cc';
+
+        particlesJS('particles-js', {
+            "particles": {
+                "number": {
+                    "value": 80,
+                    "density": {
+                        "enable": true,
+                        "value_area": 800
+                    }
+                },
+                "color": {
+                    "value": particleColor
+                },
+                "shape": {
+                    "type": "circle"
+                },
+                "opacity": {
+                    "value": 0.5,
+                    "random": false,
+                    "anim": {
+                        "enable": false,
+                        "speed": 1,
+                        "opacity_min": 0.1,
+                        "sync": false
+                    }
+                },
+                "size": {
+                    "value": 3,
+                    "random": true,
+                    "anim": {
+                        "enable": false,
+                        "speed": 40,
+                        "size_min": 0.1,
+                        "sync": false
+                    }
+                },
+                "line_linked": {
+                    "enable": true,
+                    "distance": 150,
+                    "color": particleColor,
+                    "opacity": 0.4,
+                    "width": 1
+                },
+                "move": {
+                    "enable": true,
+                    "speed": 2,
+                    "direction": "none",
+                    "random": false,
+                    "straight": false,
+                    "out_mode": "out",
+                    "bounce": false
+                }
+            },
+            "interactivity": {
+                "detect_on": "canvas",
+                "events": {
+                    "onhover": {
+                        "enable": true,
+                        "mode": "repulse"
+                    },
+                    "onclick": {
+                        "enable": true,
+                        "mode": "push"
+                    },
+                    "resize": true
+                },
+                "modes": {
+                    "repulse": {
+                        "distance": 100,
+                        "duration": 0.4
+                    },
+                    "push": {
+                        "particles_nb": 4
+                    }
+                }
+            },
+            "retina_detect": true
+        });
+
+        console.log('✅ Particles.js initialisé avec succès');
+    }
+
+    // Lancer les particules après un court délai pour être sûr
+    setTimeout(initParticles, 100);
 });
