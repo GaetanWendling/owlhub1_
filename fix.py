@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 fix_final_site.py
-Corrections finales :
+Corrections finales pour owlhub_
 - Orange → Rouge (#ef4444)
 - Fenêtre code M fonctionnelle
 - Page header réduite (padding: 6rem → 3rem)
@@ -12,9 +12,9 @@ Corrections finales :
 from pathlib import Path
 import re
 
-BASE_DIR = Path(r"C:\Users\gaeta\OneDrive\Bureau\site version claude")
+BASE_DIR = Path(r"C:\Users\gaeta\OneDrive\Bureau\owlhub_")
 
-print("🦉 CORRECTIONS FINALES")
+print("🦉 CORRECTIONS FINALES - owlhub_")
 print("=" * 50)
 
 # ============================================
@@ -22,13 +22,18 @@ print("=" * 50)
 # ============================================
 def fix_css():
     css_file = BASE_DIR / "assets" / "css" / "style.css"
+
+    if not css_file.exists():
+        print(f"❌ Fichier introuvable : {css_file}")
+        return
+
     content = css_file.read_text(encoding='utf-8')
 
     # Remplacer TOUTES les occurrences d'orange
     replacements = [
         ('#f97316', '#ef4444'),  # Orange → Rouge
         ('#fb923c', '#ef4444'),  # Orange clair → Rouge
-        ('orange', 'red'),       # Mot clé
+        ('#ea580c', '#dc2626'),  # Orange foncé → Rouge foncé
     ]
 
     for old, new in replacements:
@@ -53,8 +58,8 @@ def fix_page_header():
 
     # Chercher la section .page-header et modifier le padding
     content = re.sub(
-        r'\.page-header\s*\{[^}]*padding:\s*8rem[^;]*;',
-        '.page-header {\n    padding: 3rem 0 2rem;',
+        r'(\.page-header\s*\{[^}]*padding:\s*)8rem([^;]*;)',
+        r'\g<1>3rem\g<2>',
         content
     )
 
@@ -68,7 +73,12 @@ def add_mobile_menu():
     css_file = BASE_DIR / "assets" / "css" / "style.css"
     content = css_file.read_text(encoding='utf-8')
 
-    # Ajouter le CSS du burger menu avant le dernier }
+    # Vérifier si le burger existe déjà
+    if '.burger-menu' in content:
+        print("⚠️ Menu burger déjà présent")
+        return
+
+    # Ajouter le CSS du burger menu avant les media queries
     burger_css = """
 
 /* ============================================
@@ -82,13 +92,15 @@ def add_mobile_menu():
     background: none;
     border: none;
     cursor: pointer;
-    padding: 8px;
+    padding: 0.5rem;
+    z-index: 1001;
 }
 
 .burger-menu span {
-    width: 24px;
-    height: 2px;
+    width: 25px;
+    height: 3px;
     background: var(--text-primary);
+    border-radius: 2px;
     transition: all 0.3s ease;
 }
 
@@ -114,44 +126,37 @@ def add_mobile_menu():
         top: 70px;
         left: 0;
         right: 0;
-        background: var(--bg-secondary);
+        background: var(--bg-primary);
         flex-direction: column;
-        padding: 1rem;
-        gap: 0;
-        transform: translateY(-100%);
-        opacity: 0;
-        transition: all 0.3s ease;
-        border-bottom: 1px solid var(--border);
+        padding: 2rem;
+        gap: 1rem;
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
         box-shadow: var(--shadow-lg);
+        z-index: 1000;
     }
 
     .nav-menu.active {
-        transform: translateY(0);
-        opacity: 1;
+        transform: translateX(0);
     }
 
-    .nav-menu li {
-        width: 100%;
-        border-bottom: 1px solid var(--border);
-    }
-
-    .nav-menu li:last-child {
-        border-bottom: none;
-    }
-
-    .nav-link {
-        display: block;
-        padding: 1rem;
+    .nav-link::after {
+        display: none;
     }
 }
 """
 
-    content += burger_css
+    # Insérer avant @media (max-width: 640px)
+    if '@media (max-width: 640px)' in content:
+        content = content.replace('@media (max-width: 640px)', burger_css + '\n@media (max-width: 640px)')
+    else:
+        content += burger_css
+
     css_file.write_text(content, encoding='utf-8')
-    print("✅ CSS burger menu ajouté")
+    print("✅ CSS menu burger ajouté")
 
 # ============================================
-# 4. AJOUTER BOUTON BURGER DANS HTML
+# 4. AJOUTER BURGER DANS HTML
 # ============================================
 def add_burger_to_html():
     html_files = [
@@ -164,105 +169,118 @@ def add_burger_to_html():
     ]
 
     for filename in html_files:
-        filepath = BASE_DIR / filename
-        if not filepath.exists():
+        html_file = BASE_DIR / filename
+
+        if not html_file.exists():
+            print(f"⚠️ Fichier introuvable : {filename}")
             continue
 
-        content = filepath.read_text(encoding='utf-8')
+        content = html_file.read_text(encoding='utf-8')
 
-        # Chercher la fermeture de nav-menu et ajouter le burger après
-        if '<button class="burger-menu"' not in content:
-            content = content.replace(
-                '</ul>',
-                '''</ul>
-                <button class="burger-menu" aria-label="Menu">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </button>''',
-                1  # Remplacer uniquement la première occurrence
-            )
+        # Vérifier si le burger existe déjà
+        if 'burger-menu' in content:
+            continue
 
-            filepath.write_text(content, encoding='utf-8')
-            print(f"✅ Burger ajouté à {filename}")
+        # Ajouter le burger après .nav-actions
+        burger_html = '''
+            <button class="burger-menu" id="burger-menu" aria-label="Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>'''
+
+        # Chercher </div> après .nav-actions et insérer avant
+        content = re.sub(
+            r'(</div>\s*</div>\s*</nav>)',
+            burger_html + r'\n        \1',
+            content,
+            count=1
+        )
+
+        html_file.write_text(content, encoding='utf-8')
+        print(f"✅ Burger ajouté dans {filename}")
 
 # ============================================
-# 5. SCRIPT JS POUR MENU BURGER
+# 5. AJOUTER JS BURGER
 # ============================================
 def add_burger_js():
     js_file = BASE_DIR / "assets" / "js" / "theme.js"
+
+    if not js_file.exists():
+        print(f"❌ Fichier introuvable : {js_file}")
+        return
+
     content = js_file.read_text(encoding='utf-8')
 
-    # Ajouter le code du burger menu
+    # Vérifier si le code existe déjà
+    if 'burger-menu' in content:
+        print("⚠️ JS burger déjà présent")
+        return
+
     burger_js = """
 
 // ============================================
 // MENU BURGER MOBILE
 // ============================================
 
-document.addEventListener('DOMContentLoaded', () => {
-    const burger = document.querySelector('.burger-menu');
-    const navMenu = document.querySelector('.nav-menu');
+const burgerMenu = document.getElementById('burger-menu');
+const navMenu = document.querySelector('.nav-menu');
 
-    if (burger && navMenu) {
-        burger.addEventListener('click', () => {
-            burger.classList.toggle('active');
-            navMenu.classList.toggle('active');
-        });
+if (burgerMenu && navMenu) {
+    burgerMenu.addEventListener('click', () => {
+        burgerMenu.classList.toggle('active');
+        navMenu.classList.toggle('active');
+    });
 
-        // Fermer le menu si on clique sur un lien
-        document.querySelectorAll('.nav-link').forEach(link => {
-            link.addEventListener('click', () => {
-                burger.classList.remove('active');
-                navMenu.classList.remove('active');
-            });
+    // Fermer le menu au clic sur un lien
+    const navLinks = navMenu.querySelectorAll('.nav-link');
+    navLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            burgerMenu.classList.remove('active');
+            navMenu.classList.remove('active');
         });
+    });
 
-        // Fermer le menu si on clique en dehors
-        document.addEventListener('click', (e) => {
-            if (!burger.contains(e.target) && !navMenu.contains(e.target)) {
-                burger.classList.remove('active');
-                navMenu.classList.remove('active');
-            }
-        });
-    }
-});
+    // Fermer le menu au clic en dehors
+    document.addEventListener('click', (e) => {
+        if (!burgerMenu.contains(e.target) && !navMenu.contains(e.target)) {
+            burgerMenu.classList.remove('active');
+            navMenu.classList.remove('active');
+        }
+    });
+}
 """
 
     content += burger_js
     js_file.write_text(content, encoding='utf-8')
-    print("✅ JS burger menu ajouté")
+    print("✅ JS menu burger ajouté")
 
 # ============================================
-# 6. CORRIGER LE CODE M (Animation typing)
+# 6. CORRIGER L'ANIMATION CODE M
 # ============================================
 def fix_code_m():
     js_file = BASE_DIR / "assets" / "js" / "theme.js"
     content = js_file.read_text(encoding='utf-8')
 
-    # Remplacer le code d'animation existant
     code_m = """
 
 // ============================================
 // ANIMATION CODE M
 // ============================================
 
-const codeM = `let
-    Source = Excel.CurrentWorkbook(){[Name="Data"]}[Content],
-    #"Type modifié" = Table.TransformColumnTypes(Source,{
-        {"Date", type date},
-        {"Montant", type number},
-        {"Catégorie", type text}
-    }),
-    #"Ajout mois" = Table.AddColumn(#"Type modifié", "Mois",
-        each Date.Month([Date]), Int64.Type),
-    #"Groupé" = Table.Group(#"Ajout mois", {"Mois"}, {
-        {"CA", each List.Sum([Montant]), type nullable number}
-    })
-in
-    #"Groupé"`;
-
 function typeCode() {
+    const codeM = `let
+    Source = Excel.Workbook(
+        File.Contents("C:\\\\Data\\\\ventes.xlsx")
+    ),
+    Table = Source{[Name="Données"]}[Data],
+    Transform = Table.TransformColumnTypes(
+        Table,
+        {{"Date", type date}, {"CA", type number}}
+    )
+in
+    Transform`;
+
     const element = document.getElementById('typing-code');
     if (!element) return;
 
@@ -273,21 +291,20 @@ function typeCode() {
         if (index < codeM.length) {
             element.textContent += codeM[index];
             index++;
-            setTimeout(type, 30); // 30ms par caractère
+            setTimeout(type, 30);
         }
     }
 
-    // Démarrer après 1 seconde
     setTimeout(type, 1000);
 }
 
-// Lancer l'animation au chargement de la page
+// Lancer l'animation
 if (document.getElementById('typing-code')) {
     typeCode();
 }
 """
 
-    # Remplacer l'ancienne fonction ou l'ajouter
+    # Remplacer ou ajouter
     if 'function typeCode()' in content:
         content = re.sub(
             r'function typeCode\(\).*?^}',
@@ -305,23 +322,24 @@ if (document.getElementById('typing-code')) {
 # EXÉCUTION
 # ============================================
 
-fix_css()
-fix_page_header()
-add_mobile_menu()
-add_burger_to_html()
-add_burger_js()
-fix_code_m()
+try:
+    fix_css()
+    fix_page_header()
+    add_mobile_menu()
+    add_burger_to_html()
+    add_burger_js()
+    fix_code_m()
 
-print("\n" + "=" * 50)
-print("🎉 CORRECTIONS TERMINÉES")
-print("=" * 50)
-print("\n📋 Résumé des modifications:")
-print("  ✅ Orange → Rouge (#ef4444)")
-print("  ✅ Page header réduit (3rem)")
-print("  ✅ Menu burger mobile ajouté")
-print("  ✅ Animation code M corrigée")
-print("\n🚀 Commandes de déploiement:")
-print("  cd C:\\Users\\gaeta\\OneDrive\\Bureau\\site version claude")
-print("  git add .")
-print('  git commit -m "Fix: rouge + header + burger + code M"')
-print("  git push origin main")
+    print("\n" + "=" * 50)
+    print("🎉 CORRECTIONS TERMINÉES")
+    print("=" * 50)
+    print("\n📋 Résumé des modifications:")
+    print("  ✅ Orange → Rouge (#ef4444)")
+    print("  ✅ Page header réduit (3rem)")
+    print("  ✅ Menu burger mobile ajouté")
+    print("  ✅ Animation code M corrigée")
+
+except Exception as e:
+    print(f"\n❌ ERREUR : {e}")
+
+print("\n🦉 Script terminé")

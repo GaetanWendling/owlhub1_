@@ -53,3 +53,74 @@ class ThemeManager {
 document.addEventListener('DOMContentLoaded', () => {
     new ThemeManager();
 });
+
+// ============================================
+// MENU BURGER MOBILE
+// ============================================
+
+const burgerMenu = document.getElementById('burger-menu');
+const navMenu = document.querySelector('.nav-menu');
+
+if (burgerMenu && navMenu) {
+    burgerMenu.addEventListener('click', () => {
+        burgerMenu.classList.toggle('active');
+        navMenu.classList.toggle('active');
+    });
+
+    // Fermer le menu au clic sur un lien
+    const navLinks = navMenu.querySelectorAll('.nav-link');
+    navLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            burgerMenu.classList.remove('active');
+            navMenu.classList.remove('active');
+        });
+    });
+
+    // Fermer le menu au clic en dehors
+    document.addEventListener('click', (e) => {
+        if (!burgerMenu.contains(e.target) && !navMenu.contains(e.target)) {
+            burgerMenu.classList.remove('active');
+            navMenu.classList.remove('active');
+        }
+    });
+}
+
+
+// ============================================
+// ANIMATION CODE M
+// ============================================
+
+function typeCode() {
+    const codeM = `let
+    Source = Excel.Workbook(
+        File.Contents("C:\\Data\\ventes.xlsx")
+    ),
+    Table = Source{[Name="Données"]}[Data],
+    Transform = Table.TransformColumnTypes(
+        Table,
+        {{"Date", type date}, {"CA", type number}}
+    )
+in
+    Transform`;
+
+    const element = document.getElementById('typing-code');
+    if (!element) return;
+
+    let index = 0;
+    element.textContent = '';
+
+    function type() {
+        if (index < codeM.length) {
+            element.textContent += codeM[index];
+            index++;
+            setTimeout(type, 30);
+        }
+    }
+
+    setTimeout(type, 1000);
+}
+
+// Lancer l'animation
+if (document.getElementById('typing-code')) {
+    typeCode();
+}
