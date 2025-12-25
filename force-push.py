@@ -30,7 +30,7 @@ def run_cmd(cmd, description):
 
     return result.returncode == 0
 
-print("🦉 DÉPLOIEMENT - hibwho/owlhub1_")
+print("🦉 DÉPLOIEMENT - Hibwho/owlhub1_")
 print("="*50)
 
 # 1. Ajouter les fichiers
