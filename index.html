@@ -10,6 +10,50 @@
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
+<header>
+        <nav class="nav-container">
+            <a href="#home" class="logo">
+                🦉 <span class="gradient-text">OwlHub</span>
+            </a>
+
+            <!-- Navigation Desktop -->
+            <ul class="nav-links desktop-nav">
+                <li><a href="#home">Accueil</a></li>
+                <li><a href="#features">Fonctionnalités</a></li>
+                <li><a href="#about">À propos</a></li>
+                <li><a href="#stats">Statistiques</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+
+            <!-- Bouton Theme -->
+            <button id="theme-toggle" class="theme-toggle" aria-label="Changer de thème">
+                <span class="sun">☀️</span>
+                <span class="moon">🌙</span>
+            </button>
+
+            <!-- Bouton Burger Mobile -->
+            <button class="mobile-menu-toggle" aria-label="Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </nav>
+
+        <!-- Navigation Mobile -->
+        <nav class="mobile-nav">
+            <ul>
+                <li><a href="#home">🏠 Accueil</a></li>
+                <li><a href="#features">✨ Fonctionnalités</a></li>
+                <li><a href="#about">📖 À propos</a></li>
+                <li><a href="#stats">📊 Statistiques</a></li>
+                <li><a href="#contact">📧 Contact</a></li>
+            </ul>
+        </nav>
+
+        <!-- Overlay -->
+        <div class="mobile-overlay"></div>
+    </header>
+
     <canvas id="particles-canvas"></canvas>
 
     <!-- Navigation -->

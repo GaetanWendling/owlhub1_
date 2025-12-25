@@ -1,271 +1,111 @@
-// theme.js - Gestion du thème clair/sombre
-class ThemeManager {
-    constructor() {
-        this.themeToggle = document.getElementById('theme-toggle');
-        this.currentTheme = localStorage.getItem('theme') || 'dark';
+/**
+ * theme.js - Gestion du thème et du menu mobile
+ */
 
-        this.init();
-    }
+// ============================================
+// GESTION DU THÈME
+// ============================================
+const themeToggle = {
+    button: null,
 
     init() {
-        // Appliquer le thème sauvegardé
-        this.applyTheme(this.currentTheme);
+        this.button = document.getElementById('theme-toggle');
+        if (!this.button) return;
 
-        // Event listener sur le bouton
-        if (this.themeToggle) {
-            this.themeToggle.addEventListener('click', () => this.toggleTheme());
-        }
-    }
+        // Charger le thème sauvegardé
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', savedTheme);
 
-    applyTheme(theme) {
-        document.documentElement.setAttribute('data-theme', theme);
-        localStorage.setItem('theme', theme);
-        this.currentTheme = theme;
+        // Listener
+        this.button.addEventListener('click', () => this.toggle());
 
-        // Changer l'image du hibou si présente
-        this.updateOwlImage(theme);
-    }
+        console.log('✅ Theme toggle initialisé');
+    },
 
-    toggleTheme() {
-        const newTheme = this.currentTheme === 'dark' ? 'light' : 'dark';
-        this.applyTheme(newTheme);
+    toggle() {
+        const currentTheme = document.documentElement.getAttribute('data-theme');
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+
+        document.documentElement.setAttribute('data-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
 
         // Animation du bouton
-        this.themeToggle.style.transform = 'rotate(360deg)';
+        this.button.style.transform = 'rotate(360deg)';
         setTimeout(() => {
-            this.themeToggle.style.transform = 'rotate(0deg)';
+            this.button.style.transform = 'rotate(0deg)';
         }, 300);
     }
+};
 
-    updateOwlImage(theme) {
-        const owlImages = document.querySelectorAll('.hero-owl, .page-owl, #page-owl');
-        owlImages.forEach(img => {
-            if (theme === 'dark') {
-                img.src = img.src.replace('owl_light.png', 'owl_dark.png');
-            } else {
-                img.src = img.src.replace('owl_dark.png', 'owl_light.png');
-            }
-        });
-    }
-}
+// ============================================
+// MENU MOBILE
+// ============================================
+const mobileNav = {
+    burger: null,
+    nav: null,
+    overlay: null,
+    isOpen: false,
 
-// Initialisation
+    init() {
+        // Sélectionner les éléments
+        this.burger = document.querySelector('.mobile-menu-toggle');
+        this.nav = document.querySelector('.mobile-nav');
+        this.overlay = document.querySelector('.mobile-overlay');
 
-    // ============================================
-    // NAVIGATION MOBILE BURGER
-    // ============================================
-    const initMobileNav = () => {
-        const burger = document.querySelector('.mobile-menu-toggle');
-        const mobileNav = document.querySelector('.mobile-nav');
-        const overlay = document.querySelector('.mobile-overlay');
-
-        if (!burger || !mobileNav) {
-            console.warn('⚠️ Éléments burger manquants');
+        if (!this.burger || !this.nav || !this.overlay) {
+            console.warn('⚠️ Éléments mobile manquants');
             return;
         }
 
-        // Toggle menu
-        const toggleMenu = () => {
-            const isOpen = burger.classList.contains('active');
-
-            burger.classList.toggle('active');
-            mobileNav.classList.toggle('active');
-            if (overlay) overlay.classList.toggle('active');
-            document.body.style.overflow = isOpen ? '' : 'hidden';
-
-            console.log('🍔 Menu burger:', isOpen ? 'fermé' : 'ouvert');
-        };
-
-        // Event listeners
-        burger.addEventListener('click', toggleMenu);
-
-        if (overlay) {
-            overlay.addEventListener('click', toggleMenu);
-        }
+        // Listeners
+        this.burger.addEventListener('click', () => this.toggle());
+        this.overlay.addEventListener('click', () => this.close());
 
         // Fermer au clic sur un lien
-        mobileNav.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', toggleMenu);
-        });
-
-        // Fermer avec Escape
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && burger.classList.contains('active')) {
-                toggleMenu();
-            }
-        });
-
-        console.log('📱 Navigation mobile initialisée');
-    };
-
-    document.addEventListener('DOMContentLoaded', () => {
-    new ThemeManager();
-});
-
-
-
-const burgerMenu = document.getElementById('burger-menu');
-const navMenu = document.querySelector('.nav-menu');
-
-if (burgerMenu && navMenu) {
-    burgerMenu.addEventListener('click', () => {
-        burgerMenu.classList.toggle('active');
-        navMenu.classList.toggle('active');
-    });
-
-    // Fermer le menu au clic sur un lien
-    const navLinks = navMenu.querySelectorAll('.nav-link');
-    navLinks.forEach(link => {
-        link.addEventListener('click', () => {
-            burgerMenu.classList.remove('active');
-            navMenu.classList.remove('active');
-        });
-    });
-
-    // Fermer le menu au clic en dehors
-    document.addEventListener('click', (e) => {
-        if (!burgerMenu.contains(e.target) && !navMenu.contains(e.target)) {
-            burgerMenu.classList.remove('active');
-            navMenu.classList.remove('active');
-        }
-    });
-}
-
-
-// ============================================
-// ANIMATION CODE M
-// ============================================
-
-function typeCode() {
-    const codeM = `let
-    Source = Excel.Workbook(
-        File.Contents("C:\\Data\\ventes.xlsx")
-    ),
-    Table = Source{[Name="Données"]}[Data],
-    Transform = Table.TransformColumnTypes(
-        Table,
-        {{"Date", type date}, {"CA", type number}}
-    )
-in
-    Transform`;
-
-    const element = document.getElementById('typing-code');
-    if (!element) return;
-
-    let index = 0;
-    element.textContent = '';
-
-    function type() {
-        if (index < codeM.length) {
-            element.textContent += codeM[index];
-            index++;
-            setTimeout(type, 30);
-        }
-    }
-
-    setTimeout(type, 1000);
-}
-
-// Lancer l'animation
-if (document.getElementById('typing-code')) {
-    typeCode();
-}
-
-// ============================================
-// MENU BURGER MOBILE
-// ============================================
-
-
-    // ============================================
-    // NAVIGATION MOBILE BURGER
-    // ============================================
-    const initMobileNav = () => {
-        const burger = document.querySelector('.mobile-menu-toggle');
-        const mobileNav = document.querySelector('.mobile-nav');
-        const overlay = document.querySelector('.mobile-overlay');
-
-        if (!burger || !mobileNav) {
-            console.warn('⚠️ Éléments burger manquants');
-            return;
-        }
-
-        // Toggle menu
-        const toggleMenu = () => {
-            const isOpen = burger.classList.contains('active');
-
-            burger.classList.toggle('active');
-            mobileNav.classList.toggle('active');
-            if (overlay) overlay.classList.toggle('active');
-            document.body.style.overflow = isOpen ? '' : 'hidden';
-
-            console.log('🍔 Menu burger:', isOpen ? 'fermé' : 'ouvert');
-        };
-
-        // Event listeners
-        burger.addEventListener('click', toggleMenu);
-
-        if (overlay) {
-            overlay.addEventListener('click', toggleMenu);
-        }
-
-        // Fermer au clic sur un lien
-        mobileNav.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', toggleMenu);
-        });
-
-        // Fermer avec Escape
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && burger.classList.contains('active')) {
-                toggleMenu();
-            }
-        });
-
-        console.log('📱 Navigation mobile initialisée');
-    };
-
-    document.addEventListener('DOMContentLoaded', () => {
-    const burgerBtn = document.getElementById('burger-menu');
-    const nav = document.querySelector('.nav-links');
-
-    if (burgerBtn && nav) {
-        // Clic sur le burger
-        burgerBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-
-            const isOpen = burgerBtn.classList.contains('active');
-
-            if (isOpen) {
-                // Fermer le menu
-                burgerBtn.classList.remove('active');
-                nav.classList.remove('active');
-                document.body.style.overflow = '';
-            } else {
-                // Ouvrir le menu
-                burgerBtn.classList.add('active');
-                nav.classList.add('active');
-                document.body.style.overflow = 'hidden';
-            }
-        });
-
-        // Fermer le menu en cliquant sur un lien
-        const navLinks = nav.querySelectorAll('a');
-        navLinks.forEach(link => {
+        this.nav.querySelectorAll('a').forEach(link => {
             link.addEventListener('click', () => {
-                burgerBtn.classList.remove('active');
-                nav.classList.remove('active');
-                document.body.style.overflow = '';
+                setTimeout(() => this.close(), 300);
             });
         });
 
-        // Fermer le menu en cliquant en dehors
-        document.addEventListener('click', (e) => {
-            if (!nav.contains(e.target) && !burgerBtn.contains(e.target)) {
-                burgerBtn.classList.remove('active');
-                nav.classList.remove('active');
-                document.body.style.overflow = '';
-            }
-        });
+        console.log('✅ Menu mobile initialisé');
+    },
+
+    toggle() {
+        this.isOpen ? this.close() : this.open();
+    },
+
+    open() {
+        this.isOpen = true;
+        this.burger.classList.add('active');
+        this.nav.classList.add('active');
+        this.overlay.classList.add('active');
+        document.body.style.overflow = 'hidden'; // Bloquer le scroll
+        console.log('📱 Menu ouvert');
+    },
+
+    close() {
+        this.isOpen = false;
+        this.burger.classList.remove('active');
+        this.nav.classList.remove('active');
+        this.overlay.classList.remove('active');
+        document.body.style.overflow = ''; // Restaurer le scroll
+        console.log('📱 Menu fermé');
     }
+};
+
+// ============================================
+// INITIALISATION AU CHARGEMENT
+// ============================================
+document.addEventListener('DOMContentLoaded', () => {
+    console.log('🦉 Initialisation theme.js');
+
+    themeToggle.init();
+    mobileNav.init();
+
+    console.log('✅ theme.js chargé');
 });
 
+// Export pour debug
+window.mobileNav = mobileNav;
+window.themeToggle = themeToggle;
