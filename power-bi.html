@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Power BI - OwlHub Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+    <canvas id="particles-canvas"></canvas>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <span class="logo-owl">Owl</span><span class="logo-hub">Hub</span>
+            </a>
+
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">Accueil</a></li>
+                <li><a href="offres.html" class="nav-link">Offres</a></li>
+                <li><a href="methode.html" class="nav-link">Méthode</a></li>
+                <li><a href="power-bi.html" class="nav-link active">Power BI</a></li>
+                <li><a href="a-propos.html" class="nav-link">À propos</a></li>
+                <li><a href="contact.html" class="nav-link">Contact</a></li>
+            </ul>
+
+            <div class="nav-actions">
+                <button id="theme-toggle" class="theme-toggle">
+                    <span class="theme-icon sun">☀️</span>
+                    <span class="theme-icon moon">🌙</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <header class="page-header">
+        <img src="assets/images/owl_dark.png" alt="OwlHub Mascot" class="page-owl" id="page-owl">
+        <h1 class="page-title">Power BI Excellence</h1>
+        <p class="page-subtitle">Transformez vos données en insights actionnables avec des dashboards Power BI performants</p>
+    </header>
+
+    <main class="page-content">
+        <div class="container">
+            <section class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3>Visualisations Impactantes</h3>
+                    <p>Graphiques interactifs et tableaux de bord intuitifs qui racontent l'histoire de vos données</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3>Performance Optimisée</h3>
+                    <p>Modèles de données optimisés et requêtes DAX performantes pour des temps de chargement rapides</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🔄</div>
+                    <h3>Automatisation Complète</h3>
+                    <p>Actualisation automatique des données via Power Query et connexions aux sources multiples</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🎨</div>
+                    <h3>Design sur Mesure</h3>
+                    <p>Interface adaptée à votre charte graphique et aux besoins spécifiques de vos utilisateurs</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">📱</div>
+                    <h3>Responsive Design</h3>
+                    <p>Dashboards parfaitement adaptés à tous les écrans : desktop, tablette et mobile</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🔐</div>
+                    <h3>Sécurité & Gouvernance</h3>
+                    <p>Gestion des droits d'accès (RLS) et respect des normes de sécurité des données</p>
+                </div>
+            </section>
+
+            <section class="cta-section">
+                <h2>Prêt à transformer vos données ?</h2>
+                <p>Discutons de votre projet Power BI et créons ensemble des dashboards qui feront la différence</p>
+                <a href="contact.html" class="btn btn-primary btn-large">Démarrer un projet</a>
+            </section>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <div class="footer-logo">
+                    <span class="logo-owl">Owl</span><span class="logo-hub">Hub</span>
+                </div>
+                <p class="footer-tagline">Dashboards Power BI sur mesure pour décideurs exigeants</p>
+            </div>
+
+            <div class="footer-links">
+                <div class="footer-column">
+                    <h4>Navigation</h4>
+                    <ul>
+                        <li><a href="index.html" class="footer-link">Accueil</a></li>
+                        <li><a href="offres.html" class="footer-link">Offres</a></li>
+                        <li><a href="methode.html" class="footer-link">Méthode</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h4>Services</h4>
+                    <ul>
+                        <li><a href="power-bi.html" class="footer-link">Power BI</a></li>
+                        <li><a href="a-propos.html" class="footer-link">À propos</a></li>
+                        <li><a href="contact.html" class="footer-link">Contact</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h4>Contact</h4>
+                    <ul>
+                        <li><a href="mailto:contact@owlhub.fr" class="footer-link">contact@owlhub.fr</a></li>
+                        <li><a href="tel:+33123456789" class="footer-link">+33 1 23 45 67 89</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2024 OwlHub Dashboard. Tous droits réservés.</p>
+        </div>
+    </footer>
+
+    <script src="assets/js/particles.js"></script>
+    <script src="assets/js/theme.js"></script>
+</body>
+</html>

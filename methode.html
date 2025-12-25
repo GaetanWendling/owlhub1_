@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notre Méthode - OwlHub Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+    <canvas id="particles-canvas"></canvas>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <span class="logo-owl">Owl</span><span class="logo-hub">Hub</span>
+            </a>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">Accueil</a></li>
+                <li><a href="offres.html" class="nav-link">Offres</a></li>
+                <li><a href="methode.html" class="nav-link active">Méthode</a></li>
+                <li><a href="power-bi.html" class="nav-link">Power BI</a></li>
+                <li><a href="a-propos.html" class="nav-link">À propos</a></li>
+                <li><a href="contact.html" class="nav-link">Contact</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+                    <span class="theme-icon sun">☀️</span>
+                    <span class="theme-icon moon">🌙</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <header class="page-header">
+        <img src="assets/images/owl_dark.png" alt="OwlHub" class="page-owl" id="page-owl">
+        <h1 class="page-title">Notre Méthode</h1>
+        <p class="page-subtitle">Un processus éprouvé en 3 phases pour des dashboards performants</p>
+    </header>
+
+    <section class="page-content">
+        <div class="container">
+            <div class="method-timeline">
+                <!-- Phase 1 -->
+                <div class="method-phase">
+                    <div class="phase-number">01</div>
+                    <div class="phase-content">
+                        <h2 class="phase-title">🔍 Analyse & Cadrage</h2>
+                        <p class="phase-description">
+                            Nous commençons par comprendre vos enjeux métier, vos sources de données
+                            et vos objectifs décisionnels.
+                        </p>
+                        <ul class="phase-list">
+                            <li>Atelier de cadrage avec vos équipes</li>
+                            <li>Audit de vos sources de données</li>
+                            <li>Définition des KPI critiques</li>
+                            <li>Maquettage des écrans principaux</li>
+                            <li>Validation du périmètre fonctionnel</li>
+                        </ul>
+                        <div class="phase-duration">⏱️ Durée : 3-5 jours</div>
+                    </div>
+                </div>
+
+                <!-- Phase 2 -->
+                <div class="method-phase">
+                    <div class="phase-number">02</div>
+                    <div class="phase-content">
+                        <h2 class="phase-title">⚙️ Développement & Intégration</h2>
+                        <p class="phase-description">
+                            Nous construisons votre dashboard avec les meilleures pratiques
+                            Power BI et une attention particulière à la performance.
+                        </p>
+                        <ul class="phase-list">
+                            <li>Connexion et transformation des données (Power Query)</li>
+                            <li>Modélisation du schéma en étoile</li>
+                            <li>Création des mesures DAX optimisées</li>
+                            <li>Design des visualisations interactives</li>
+                            <li>Tests de performance et ajustements</li>
+                            <li>Mise en place de la sécurité (RLS si nécessaire)</li>
+                        </ul>
+                        <div class="phase-duration">⏱️ Durée : 10-20 jours</div>
+                    </div>
+                </div>
+
+                <!-- Phase 3 -->
+                <div class="method-phase">
+                    <div class="phase-number">03</div>
+                    <div class="phase-content">
+                        <h2 class="phase-title">🚀 Formation & Déploiement</h2>
+                        <p class="phase-description">
+                            Nous vous accompagnons jusqu'à l'autonomie complète avec une formation
+                            adaptée et un support post-déploiement.
+                        </p>
+                        <ul class="phase-list">
+                            <li>Formation utilisateurs sur-mesure</li>
+                            <li>Documentation technique complète</li>
+                            <li>Guide d'utilisation illustré</li>
+                            <li>Déploiement sur Power BI Service</li>
+                            <li>Configuration des actualisations automatiques</li>
+                            <li>Support post-déploiement inclus</li>
+                        </ul>
+                        <div class="phase-duration">⏱️ Durée : 2-3 jours</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cta-section">
+                <h2>Prêt à démarrer votre projet ?</h2>
+                <p>Planifions ensemble votre atelier de cadrage</p>
+                <a href="contact.html" class="btn btn-primary btn-large">Prendre rendez-vous</a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <div class="footer-logo">
+                    <span class="logo-owl">Owl</span><span class="logo-hub">Hub</span>
+                </div>
+                <p class="footer-tagline">Transformez vos données en décisions stratégiques</p>
+            </div>
+            <div class="footer-links">
+                <div class="footer-column">
+                    <h4>Navigation</h4>
+                    <ul>
+                        <li><a href="index.html" class="footer-link">Accueil</a></li>
+                        <li><a href="offres.html" class="footer-link">Offres</a></li>
+                        <li><a href="methode.html" class="footer-link">Méthode</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Services</h4>
+                    <ul>
+                        <li><a href="power-bi.html" class="footer-link">Power BI</a></li>
+                        <li><a href="a-propos.html" class="footer-link">À propos</a></li>
+                        <li><a href="contact.html" class="footer-link">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Contact</h4>
+                    <ul>
+                        <li><a href="mailto:contact@owlhub.fr" class="footer-link">contact@owlhub.fr</a></li>
+                        <li><a href="tel:+33123456789" class="footer-link">+33 1 23 45 67 89</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 OwlHub Dashboard. Tous droits réservés.</p>
+        </div>
+    </footer>
+
+    <script src="assets/js/particles.js"></script>
+    <script src="assets/js/theme.js"></script>
+</body>
+</html>

@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nos Offres - OwlHub Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+    <canvas id="particles-canvas"></canvas>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <span class="logo-owl">Owl</span><span class="logo-hub">Hub</span>
+            </a>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">Accueil</a></li>
+                <li><a href="offres.html" class="nav-link active">Offres</a></li>
+                <li><a href="methode.html" class="nav-link">Méthode</a></li>
+                <li><a href="power-bi.html" class="nav-link">Power BI</a></li>
+                <li><a href="a-propos.html" class="nav-link">À propos</a></li>
+                <li><a href="contact.html" class="nav-link">Contact</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+                    <span class="theme-icon sun">☀️</span>
+                    <span class="theme-icon moon">🌙</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <header class="page-header">
+        <img src="assets/images/owl_dark.png" alt="OwlHub" class="page-owl" id="page-owl">
+        <h1 class="page-title">Nos Offres</h1>
+        <p class="page-subtitle">Choisissez la solution qui correspond à vos besoins</p>
+    </header>
+
+    <!-- Content -->
+    <section class="page-content">
+        <div class="container">
+            <div class="pricing-grid">
+                <!-- Offre Essentiel -->
+                <div class="pricing-card">
+                    <div class="pricing-header">
+                        <h3>Dashboard Essentiel</h3>
+                        <div class="pricing-price">
+                            <span class="price-amount">1 500€</span>
+                            <span class="price-period">HT</span>
+                        </div>
+                    </div>
+                    <div class="pricing-features">
+                        <h4>✨ Inclus :</h4>
+                        <ul>
+                            <li>✓ 1 page Power BI interactive</li>
+                            <li>✓ 5 visualisations personnalisées</li>
+                            <li>✓ Connexion à 2 sources de données</li>
+                            <li>✓ Formation utilisateur (2h)</li>
+                            <li>✓ Support 30 jours</li>
+                        </ul>
+                        <div class="pricing-duration">
+                            <strong>⏱️ Durée :</strong> 1-2 semaines
+                        </div>
+                    </div>
+                    <a href="contact.html" class="btn btn-primary btn-full">Démarrer</a>
+                </div>
+
+                <!-- Offre Premium -->
+                <div class="pricing-card pricing-featured">
+                    <div class="pricing-badge">🔥 Populaire</div>
+                    <div class="pricing-header">
+                        <h3>Dashboard Premium</h3>
+                        <div class="pricing-price">
+                            <span class="price-amount">3 500€</span>
+                            <span class="price-period">HT</span>
+                        </div>
+                    </div>
+                    <div class="pricing-features">
+                        <h4>✨ Inclus :</h4>
+                        <ul>
+                            <li>✓ 3-5 pages Power BI interactives</li>
+                            <li>✓ 15+ visualisations avancées</li>
+                            <li>✓ Connexion multi-sources illimitée</li>
+                            <li>✓ Modèle de données optimisé</li>
+                            <li>✓ Mesures DAX personnalisées</li>
+                            <li>✓ Formation complète (1 jour)</li>
+                            <li>✓ Support 90 jours prioritaire</li>
+                            <li>✓ Documentation technique</li>
+                        </ul>
+                        <div class="pricing-duration">
+                            <strong>⏱️ Durée :</strong> 3-4 semaines
+                        </div>
+                    </div>
+                    <a href="contact.html" class="btn btn-primary btn-full">Démarrer</a>
+                </div>
+
+                <!-- Offre Enterprise -->
+                <div class="pricing-card">
+                    <div class="pricing-header">
+                        <h3>Dashboard Enterprise</h3>
+                        <div class="pricing-price">
+                            <span class="price-amount">Sur devis</span>
+                        </div>
+                    </div>
+                    <div class="pricing-features">
+                        <h4>✨ Inclus :</h4>
+                        <ul>
+                            <li>✓ Solution complète multi-rapports</li>
+                            <li>✓ Architecture de données complexe</li>
+                            <li>✓ Intégration API & automatisation</li>
+                            <li>✓ Sécurité niveau entreprise (RLS)</li>
+                            <li>✓ Performance optimisée</li>
+                            <li>✓ Formation équipe complète</li>
+                            <li>✓ Support continu 12 mois</li>
+                            <li>✓ Évolutions incluses</li>
+                        </ul>
+                        <div class="pricing-duration">
+                            <strong>⏱️ Durée :</strong> 6-12 semaines
+                        </div>
+                    </div>
+                    <a href="contact.html" class="btn btn-primary btn-full">Nous contacter</a>
+                </div>
+            </div>
+
+            <!-- CTA Section -->
+            <div class="cta-section">
+                <h2>Besoin d'un accompagnement sur mesure ?</h2>
+                <p>Discutons de votre projet et trouvons ensemble la solution idéale</p>
+                <a href="contact.html" class="btn btn-primary btn-large">Prendre rendez-vous</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <div class="footer-logo">
+                    <span class="logo-owl">Owl</span><span class="logo-hub">Hub</span>
+                </div>
+                <p class="footer-tagline">Transformez vos données en décisions stratégiques</p>
+            </div>
+            <div class="footer-links">
+                <div class="footer-column">
+                    <h4>Navigation</h4>
+                    <ul>
+                        <li><a href="index.html" class="footer-link">Accueil</a></li>
+                        <li><a href="offres.html" class="footer-link">Offres</a></li>
+                        <li><a href="methode.html" class="footer-link">Méthode</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Services</h4>
+                    <ul>
+                        <li><a href="power-bi.html" class="footer-link">Power BI</a></li>
+                        <li><a href="a-propos.html" class="footer-link">À propos</a></li>
+                        <li><a href="contact.html" class="footer-link">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Contact</h4>
+                    <ul>
+                        <li><a href="mailto:contact@owlhub.fr" class="footer-link">contact@owlhub.fr</a></li>
+                        <li><a href="tel:+33123456789" class="footer-link">+33 1 23 45 67 89</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 OwlHub Dashboard. Tous droits réservés.</p>
+        </div>
+    </footer>
+
+    <script src="assets/js/particles.js"></script>
+    <script src="assets/js/theme.js"></script>
+</body>
+</html>

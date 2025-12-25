@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact - OwlHub Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+    <canvas id="particles-canvas"></canvas>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <span class="logo-owl">Owl</span><span class="logo-hub">Hub</span>
+            </a>
+
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">Accueil</a></li>
+                <li><a href="offres.html" class="nav-link">Offres</a></li>
+                <li><a href="methode.html" class="nav-link">Méthode</a></li>
+                <li><a href="power-bi.html" class="nav-link">Power BI</a></li>
+                <li><a href="a-propos.html" class="nav-link">À propos</a></li>
+                <li><a href="contact.html" class="nav-link active">Contact</a></li>
+            </ul>
+
+            <div class="nav-actions">
+                <button id="theme-toggle" class="theme-toggle">
+                    <span class="theme-icon sun">☀️</span>
+                    <span class="theme-icon moon">🌙</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <header class="page-header">
+        <img src="assets/images/owl_dark.png" alt="OwlHub Mascot" class="page-owl" id="page-owl">
+        <h1 class="page-title">Contactez-nous</h1>
+        <p class="page-subtitle">Parlons de votre projet Power BI</p>
+    </header>
+
+    <main class="page-content">
+        <div class="container">
+            <div class="contact-grid">
+                <div class="contact-form-wrapper">
+                    <h2>Envoyez-nous un message</h2>
+                    <form class="contact-form" action="#" method="POST">
+                        <div class="form-group">
+                            <label for="name">Nom complet *</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">Email *</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="company">Entreprise</label>
+                            <input type="text" id="company" name="company">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="offer">Offre souhaitée</label>
+                            <select id="offer" name="offer">
+                                <option value="">-- Sélectionnez une offre --</option>
+                                <option value="starter">Dashboard Starter</option>
+                                <option value="pro">Dashboard Pro</option>
+                                <option value="enterprise">Solution Enterprise</option>
+                                <option value="other">Autre demande</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="message">Message *</label>
+                            <textarea id="message" name="message" rows="6" required></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-full">Envoyer le message</button>
+                    </form>
+                </div>
+
+                <div class="contact-info-wrapper">
+                    <h2>Informations de contact</h2>
+
+                    <div class="contact-info-item">
+                        <div class="contact-icon">📧</div>
+                        <div class="contact-details">
+                            <strong>Email</strong>
+                            <a href="mailto:contact@owlhub.fr">contact@owlhub.fr</a>
+                            <p>Réponse sous 24h ouvrées</p>
+                        </div>
+                    </div>
+
+                    <div class="contact-info-item">
+                        <div class="contact-icon">📞</div>
+                        <div class="contact-details">
+                            <strong>Téléphone</strong>
+                            <a href="tel:+33123456789">+33 1 23 45 67 89</a>
+                            <p>Lun-Ven: 9h-18h</p>
+                        </div>
+                    </div>
+
+                    <div class="contact-info-item">
+                        <div class="contact-icon">💼</div>
+                        <div class="contact-details">
+                            <strong>LinkedIn</strong>
+                            <a href="https://linkedin.com" target="_blank">Suivez-nous</a>
+                            <p>Restez informé de nos actualités</p>
+                        </div>
+                    </div>
+
+                    <div class="contact-cta">
+                        <h3>Besoin d'un devis rapide ?</h3>
+                        <p>Décrivez votre projet en quelques lignes et recevez une estimation sous 48h.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <div class="footer-logo">
+                    <span class="logo-owl">Owl</span><span class="logo-hub">Hub</span>
+                </div>
+                <p class="footer-tagline">Dashboards Power BI sur mesure pour décideurs exigeants</p>
+            </div>
+
+            <div class="footer-links">
+                <div class="footer-column">
+                    <h4>Navigation</h4>
+                    <ul>
+                        <li><a href="index.html" class="footer-link">Accueil</a></li>
+                        <li><a href="offres.html" class="footer-link">Offres</a></li>
+                        <li><a href="methode.html" class="footer-link">Méthode</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h4>Services</h4>
+                    <ul>
+                        <li><a href="power-bi.html" class="footer-link">Power BI</a></li>
+                        <li><a href="a-propos.html" class="footer-link">À propos</a></li>
+                        <li><a href="contact.html" class="footer-link">Contact</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h4>Contact</h4>
+                    <ul>
+                        <li><a href="mailto:contact@owlhub.fr" class="footer-link">contact@owlhub.fr</a></li>
+                        <li><a href="tel:+33123456789" class="footer-link">+33 1 23 45 67 89</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2024 OwlHub Dashboard. Tous droits réservés.</p>
+        </div>
+    </footer>
+
+    <script src="assets/js/particles.js"></script>
+    <script src="assets/js/theme.js"></script>
+</body>
+</html>
