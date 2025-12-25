@@ -104,7 +104,7 @@ body {
 }
 
 .nav-container {
-    max-width: 1200px;
+    max-width: 1400px;
     margin: 0 auto;
     padding: 1rem 2rem;
     display: flex;
@@ -325,11 +325,15 @@ body {
 }
 
 .code-window-header {
-    background: rgba(255, 255, 255, 0.05);
-    padding: 0.75rem 1rem;
-    display: flex;
-    align-items: center;
-    gap: 1rem;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: var(--bg-primary);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+    z-index: 1000;
+    padding: 0;
 }
 
 .code-dots {
@@ -1503,21 +1507,17 @@ body {
 
 /* Panneau mobile */
 .mobile-nav {
-    display: none;
     position: fixed;
     top: 0;
     right: -100%;
-    width: 300px;
-    max-width: 85vw;
+    width: 280px;
     height: 100vh;
-    background: var(--card-bg, rgba(255, 255, 255, 0.95));
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    z-index: 10000;
-    padding: 100px 30px 30px;
-    transition: right 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-    box-shadow: -10px 0 40px rgba(0, 0, 0, 0.2);
-    overflow-y: auto;
+    background: var(--bg-primary);
+    backdrop-filter: blur(10px);
+    padding: 6rem 2rem 2rem;
+    transition: right 0.3s ease;
+    z-index: 999;
+    box-shadow: -2px 0 20px rgba(0, 0, 0, 0.1);
 }
 
 .mobile-nav.active {
@@ -1556,16 +1556,13 @@ body {
 .mobile-nav a {
     display: flex;
     align-items: center;
-    gap: 12px;
-    padding: 16px 20px;
-    color: var(--text-primary, #333);
+    gap: 0.75rem;
+    padding: 1rem;
+    color: var(--text-primary);
     text-decoration: none;
+    border-radius: 8px;
+    transition: all 0.2s ease;
     font-size: 1.1rem;
-    font-weight: 500;
-    border-radius: 12px;
-    margin: 8px 0;
-    transition: all 0.3s ease;
-    border-left: 3px solid transparent;
 }
 
 .mobile-nav a:hover,
