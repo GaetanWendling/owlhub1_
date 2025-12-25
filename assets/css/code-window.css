@@ -1,0 +1,115 @@
+/* ============================================
+   CODE WINDOW
+   ============================================ */
+.code-window {
+    background: var(--code-bg);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px var(--shadow);
+    border: 1px solid var(--border-color);
+    margin-bottom: 2rem;
+    transition: all 0.5s ease;
+}
+
+[data-theme="dark"] .code-window {
+    box-shadow: 0 20px 60px rgba(239, 68, 68, 0.2);
+    border-color: var(--border-color);
+}
+
+.code-window:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 25px 70px var(--shadow);
+}
+
+[data-theme="dark"] .code-window:hover {
+    box-shadow: 0 25px 70px rgba(239, 68, 68, 0.3);
+}
+
+/* ===== HEADER ===== */
+.code-window-header {
+    background: var(--bg-secondary);
+    padding: 0.75rem 1rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.code-dots {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+}
+
+.dot-red {
+    background: #ff5f56;
+    box-shadow: 0 0 10px rgba(255, 95, 86, 0.5);
+}
+
+.dot-yellow {
+    background: #ffbd2e;
+    box-shadow: 0 0 10px rgba(255, 189, 46, 0.5);
+}
+
+.dot-green {
+    background: #27c93f;
+    box-shadow: 0 0 10px rgba(39, 201, 63, 0.5);
+}
+
+.code-window-title {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+/* ===== BODY ===== */
+.code-window-body {
+    padding: 1.5rem;
+    background: var(--code-bg);
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.code-content {
+    font-family: 'Fira Code', 'Consolas', 'Monaco', monospace;
+    font-size: 0.875rem;
+    line-height: 1.6;
+    color: var(--code-text);
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+/* Clignotement du curseur */
+.code-content::after {
+    content: '|';
+    color: var(--accent-primary);
+    animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+    0%, 50% {
+        opacity: 1;
+    }
+    51%, 100% {
+        opacity: 0;
+    }
+}
+
+/* ===== SCROLLBAR ===== */
+.code-window-body::-webkit-scrollbar {
+    width: 6px;
+}
+
+.code-window-body::-webkit-scrollbar-track {
+    background: var(--bg-secondary);
+}
+
+.code-window-body::-webkit-scrollbar-thumb {
+    background: var(--accent-primary);
+    border-radius: 3px;
+}
