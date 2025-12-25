@@ -1,42 +1,55 @@
-// GESTION DU THÈME
-const themeToggle = document.querySelector('.theme-toggle');
-const htmlElement = document.documentElement;
-const owlImage = document.querySelector('.owl-container img');
+// theme.js - Gestion du thème clair/sombre
+class ThemeManager {
+    constructor() {
+        this.themeToggle = document.getElementById('theme-toggle');
+        this.currentTheme = localStorage.getItem('theme') || 'dark';
 
-const savedTheme = localStorage.getItem('theme') || 'dark';
-htmlElement.setAttribute('data-theme', savedTheme);
-updateThemeButton(savedTheme);
-updateOwlImage(savedTheme);
+        this.init();
+    }
 
-console.log(`🎨 Thème actif:  $ {savedTheme}`);
+    init() {
+        // Appliquer le thème sauvegardé
+        this.applyTheme(this.currentTheme);
 
-if (themeToggle) {
-    themeToggle.addEventListener('click', () => {
-        const currentTheme = htmlElement.getAttribute('data-theme');
-        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-
-        htmlElement.setAttribute('data-theme', newTheme);
-        localStorage.setItem('theme', newTheme);
-        updateThemeButton(newTheme);
-        updateOwlImage(newTheme);
-
-        console.log(`🔄 Thème changé:  $ {newTheme}`);
-
-        if (typeof updateParticles === 'function') {
-            updateParticles(newTheme);
+        // Event listener sur le bouton
+        if (this.themeToggle) {
+            this.themeToggle.addEventListener('click', () => this.toggleTheme());
         }
-    });
-    console.log('✅ Bouton thème initialisé');
+    }
+
+    applyTheme(theme) {
+        document.documentElement.setAttribute('data-theme', theme);
+        localStorage.setItem('theme', theme);
+        this.currentTheme = theme;
+
+        // Changer l'image du hibou si présente
+        this.updateOwlImage(theme);
+    }
+
+    toggleTheme() {
+        const newTheme = this.currentTheme === 'dark' ? 'light' : 'dark';
+        this.applyTheme(newTheme);
+
+        // Animation du bouton
+        this.themeToggle.style.transform = 'rotate(360deg)';
+        setTimeout(() => {
+            this.themeToggle.style.transform = 'rotate(0deg)';
+        }, 300);
+    }
+
+    updateOwlImage(theme) {
+        const owlImages = document.querySelectorAll('.hero-owl, .page-owl, #page-owl');
+        owlImages.forEach(img => {
+            if (theme === 'dark') {
+                img.src = img.src.replace('owl_light.png', 'owl_dark.png');
+            } else {
+                img.src = img.src.replace('owl_dark.png', 'owl_light.png');
+            }
+        });
+    }
 }
 
-function updateThemeButton(theme) {
-    if (!themeToggle) return;
-    themeToggle.textContent = theme === 'dark' ? '☀️' : '🌙';
-}
-
-function updateOwlImage(theme) {
-    if (!owlImage) return;
-    owlImage.src = theme === 'dark'
-        ? 'assets/images/owl_dark.png'
-        : 'assets/images/owl_light.png';
-}
+// Initialisation
+document.addEventListener('DOMContentLoaded', () => {
+    new ThemeManager();
+});
