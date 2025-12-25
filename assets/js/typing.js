@@ -1,32 +1,30 @@
-// typing.js - Animation de code M avec fenêtre fixe
 document.addEventListener('DOMContentLoaded', function() {
     const codeElement = document.getElementById('typed-code');
     if (!codeElement) return;
 
-    const code = `let
-    Source = Excel.CurrentWorkbook(){[Name="Data"]}[Content],
-    TypeChange = Table.TransformColumnTypes(Source,{
-        {"Date", type date},
-        {"Montant", type number}
-    }),
-    AddYear = Table.AddColumn(TypeChange, "Annee",
-        each Date.Year([Date]), Int64.Type),
-    FilterRows = Table.SelectRows(AddYear,
-        each [Montant] > 1000)
-in
-    FilterRows`;
+    const codeText = `let owlhub = {
+    mission: "Transformer vos données en décisions",
+    expertise: ["Power BI", "DAX", "Power Query"],
+    clients_satisfaits: 47,
+    projets_livres: 89,
+
+    illuminate: function() {
+        return "🦉 Voir clair dans vos données";
+    }
+};
+
+console.log(owlhub.illuminate());`;
 
     let index = 0;
-    const speed = 50;
+    const speed = 30;
 
     function typeCode() {
-        if (index < code.length) {
-            codeElement.textContent += code.charAt(index);
+        if (index < codeText.length) {
+            codeElement.textContent += codeText.charAt(index);
             index++;
             setTimeout(typeCode, speed);
         }
     }
 
-    // Démarrer l'animation après 500ms
     setTimeout(typeCode, 500);
 });

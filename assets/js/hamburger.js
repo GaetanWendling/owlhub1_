@@ -1,33 +1,29 @@
-// hamburger.js - Menu mobile
 document.addEventListener('DOMContentLoaded', function() {
-    const hamburger = document.querySelector('.hamburger');
-    const navMenu = document.querySelector('.nav-menu');
-    const navLinks = document.querySelectorAll('.nav-link');
+    const burger = document.querySelector('.burger-menu');
+    const navLinks = document.querySelector('.nav-links');
 
-    if (hamburger && navMenu) {
-        // Toggle menu
-        hamburger.addEventListener('click', () => {
-            hamburger.classList.toggle('active');
-            navMenu.classList.toggle('active');
-            document.body.style.overflow = navMenu.classList.contains('active') ? 'hidden' : '';
-        });
+    if (!burger || !navLinks) return;
 
-        // Fermer au clic sur un lien
-        navLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                hamburger.classList.remove('active');
-                navMenu.classList.remove('active');
-                document.body.style.overflow = '';
-            });
-        });
+    burger.addEventListener('click', function(e) {
+        e.stopPropagation();
+        navLinks.classList.toggle('active');
+        burger.classList.toggle('active');
+        document.body.classList.toggle('menu-open');
+    });
 
-        // Fermer au clic en dehors
-        document.addEventListener('click', (e) => {
-            if (!hamburger.contains(e.target) && !navMenu.contains(e.target)) {
-                hamburger.classList.remove('active');
-                navMenu.classList.remove('active');
-                document.body.style.overflow = '';
-            }
+    document.querySelectorAll('.nav-links a').forEach(link => {
+        link.addEventListener('click', () => {
+            navLinks.classList.remove('active');
+            burger.classList.remove('active');
+            document.body.classList.remove('menu-open');
         });
-    }
+    });
+
+    document.addEventListener('click', (e) => {
+        if (!burger.contains(e.target) && !navLinks.contains(e.target)) {
+            navLinks.classList.remove('active');
+            burger.classList.remove('active');
+            document.body.classList.remove('menu-open');
+        }
+    });
 });

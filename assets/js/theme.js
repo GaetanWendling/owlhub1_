@@ -53,3 +53,41 @@ class ThemeManager {
 document.addEventListener('DOMContentLoaded', () => {
     new ThemeManager();
 });
+
+document.addEventListener('DOMContentLoaded', function() {
+    const themeToggle = document.getElementById('theme-toggle');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const savedTheme = localStorage.getItem('theme');
+
+    if (savedTheme) {
+        document.body.setAttribute('data-theme', savedTheme);
+    } else if (prefersDark) {
+        document.body.setAttribute('data-theme', 'dark');
+    }
+
+    if (themeToggle) {
+        themeToggle.addEventListener('click', function() {
+            const currentTheme = document.body.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+
+            document.body.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+        });
+    }
+
+    // Initialiser les particules si disponible
+    if (typeof particlesJS !== 'undefined') {
+        const theme = document.body.getAttribute('data-theme') || 'light';
+        const color = theme === 'dark' ? '#ff0000' : '#0066cc';
+
+        particlesJS('particles-js', {
+            particles: {
+                number: { value: 80 },
+                color: { value: color },
+                opacity: { value: 0.5 },
+                size: { value: 3 },
+                move: { enable: true, speed: 2 }
+            }
+        });
+    }
+});
