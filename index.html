@@ -38,6 +38,17 @@
                 </button>
             </div>
         </div>
+
+        <!-- Mobile Navigation -->
+        <nav class="mobile-nav" id="mobileNav">
+            <a href="index.html"><i class="fas fa-home"></i> Accueil</a>
+            <a href="offres.html"><i class="fas fa-briefcase"></i> Offres</a>
+            <a href="methodologie.html"><i class="fas fa-cogs"></i> Méthodologie</a>
+            <a href="powerbi.html"><i class="fas fa-chart-line"></i> Power BI</a>
+            <a href="a-propos.html"><i class="fas fa-users"></i> À propos</a>
+            <a href="statistiques.html"><i class="fas fa-chart-bar"></i> Statistiques</a>
+            <a href="contact.html"><i class="fas fa-envelope"></i> Contact</a>
+        </nav>
     </header>
 
     <canvas id="particles-canvas"></canvas>
@@ -76,9 +87,32 @@
                         </div>
                         <span class="code-window-title">Transform.m</span>
                     </div>
-                    <div class="code-window-body">
-                        <pre><code id="typing-code" class="code-content"></code></pre>
-                    </div>
+                    <div class="code-window-body"><pre><code>SELECT
+    p.ProductName,
+    SUM(o.Quantity) as TotalSales,
+    SUM(o.Revenue) as TotalRevenue,
+    AVG(o.Margin) as AvgMargin
+FROM
+    Orders o
+INNER JOIN
+    Products p ON o.ProductID = p.ID
+WHERE
+    o.Date >= '2024-01-01'
+GROUP BY
+    p.ProductName
+ORDER BY
+    TotalRevenue DESC;
+
+// Power Query M
+let
+    Source = Sql.Database("server", "db"),
+    FilteredRows = Table.SelectRows(Source,
+        each [Date] >= #date(2024,1,1)),
+    GroupedData = Table.Group(FilteredRows,
+        {"ProductName"},
+        {{"TotalSales", each List.Sum([Quantity])}})
+in
+    GroupedData</code></pre>
                 </div>
 
                 <!-- Stats Grid -->
