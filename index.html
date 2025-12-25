@@ -1,161 +1,169 @@
 <!DOCTYPE html>
-<html lang="fr" data-theme="dark">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="OwlHub Dashboard - Création de tableaux de bord Power BI sur mesure pour transformer vos données en décisions stratégiques.">
-    <title>OwlHub Dashboard - Tableaux de bord Power BI sur mesure</title>
+    <title>OwlHub Dashboard</title>
 
-    <!-- Preconnect Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
-
-    <!-- CSS Files -->
+    <!-- ORDRE CRITIQUE : styles.css EN PREMIER -->
     <link rel="stylesheet" href="assets/css/styles.css">
     <link rel="stylesheet" href="assets/css/header.css">
     <link rel="stylesheet" href="assets/css/hero.css">
     <link rel="stylesheet" href="assets/css/code-window.css">
     <link rel="stylesheet" href="assets/css/stats.css">
     <link rel="stylesheet" href="assets/css/footer.css">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <canvas id="particles-js"></canvas>
 
-    <!-- Navigation -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <a href="index.html" class="logo">
-                <span class="logo-owl">Owl</span><span class="logo-hub">Hub</span>
-            </a>
 
-            <ul class="nav-menu">
-                <li><a href="index.html" class="nav-link active">Accueil</a></li>
-                <li><a href="offres.html" class="nav-link">Offres</a></li>
-                <li><a href="methode.html" class="nav-link">Méthode</a></li>
-                <li><a href="power-bi.html" class="nav-link">Power BI</a></li>
-                <li><a href="a-propos.html" class="nav-link">À propos</a></li>
-                <li><a href="contact.html" class="nav-link">Contact</a></li>
-            </ul>
+    <!-- HEADER -->
+    <header class="header">
+        <div class="container">
+            <nav class="nav">
+                <!-- Logo -->
+                <a href="#" class="logo">
+                    <img src="assets/images/owl-logo.png" alt="OwlHub Logo" class="logo-img">
+                    <span class="logo-text">OwlHub</span>
+                </a>
 
-            <div class="nav-actions">
-                <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
-                    <span class="theme-icon sun">☀️</span>
-                    <span class="theme-icon moon">🌙</span>
+                <!-- Navigation -->
+                <ul class="nav-links">
+                    <li><a href="#" class="nav-link">Accueil</a></li>
+                    <li><a href="#solutions" class="nav-link">Solutions</a></li>
+                    <li><a href="#services" class="nav-link">Services</a></li>
+                    <li><a href="#contact" class="nav-link">Contact</a></li>
+                </ul>
+
+                <!-- Bouton jour/nuit -->
+                <button id="theme-toggle" class="theme-toggle" aria-label="Changer de thème">
+                    <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                    <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
                 </button>
+
+                <!-- Menu burger mobile -->
+                <button class="mobile-menu-toggle" aria-label="Menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">
+                    Transformez vos données en
+                    <span class="rotating-text" id="rotating-text">insights</span>
+                </h1>
+                <p class="hero-subtitle">
+                    Solutions BI sur mesure avec Power BI, Tableau et SQL Server
+                </p>
+                <div class="hero-cta">
+                    <a href="#contact" class="btn btn-primary">Démarrer maintenant</a>
+                    <a href="#services" class="btn btn-outline">Découvrir nos services</a>
+                </div>
+            </div>
+
+            <!-- Fenêtre de code -->
+            <div class="code-window">
+                <div class="code-header">
+                    <div class="code-dots">
+                        <span class="dot dot-red"></span>
+                        <span class="dot dot-yellow"></span>
+                        <span class="dot dot-green"></span>
+                    </div>
+                    <span class="code-title">owlhub_dashboard.sql</span>
+                </div>
+                <div class="code-body">
+                    <pre><code id="code-content"></code></pre>
+                </div>
             </div>
         </div>
-    </nav>
+    </section>
 
-    <!-- Hero Section -->
-  <section class="hero">
-      <!-- CONTENEUR PARTICLES (arrière-plan) -->
-      <div id="particles-js"></div>
+    <!-- STATS SECTION -->
+    <section class="stats">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">📊</div>
+                    <div class="stat-number" data-target="150">0</div>
+                    <div class="stat-label">Projets réalisés</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">👥</div>
+                    <div class="stat-number" data-target="50">0</div>
+                    <div class="stat-label">Clients satisfaits</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">⚡</div>
+                    <div class="stat-number" data-target="98">0</div>
+                    <div class="stat-label">% de satisfaction</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">🏆</div>
+                    <div class="stat-number" data-target="10">0</div>
+                    <div class="stat-label">Années d'expérience</div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-      <div class="hero-container">
-          <div class="hero-content">
-              <h1 class="hero-title">
-                  Transformez vos données en <span id="animated-word" class="animated-word">insights</span>
-              </h1>
-              <p class="hero-description">
-                  Des tableaux de bord Power BI sur mesure qui transforment vos données brutes en décisions stratégiques.
-              </p>
-
-              <div class="hero-cta">
-                  <a href="offres.html" class="btn btn-primary">Découvrir nos offres</a>
-                  <a href="contact.html" class="btn btn-secondary">Nous contacter</a>
-              </div>
-          </div>
-
-          <div class="hero-visual">
-              <!-- Code Window -->
-              <div class="code-window">
-                  <div class="code-window-header">
-                      <div class="code-dots">
-                          <span class="dot dot-red"></span>
-                          <span class="dot dot-yellow"></span>
-                          <span class="dot dot-green"></span>
-                      </div>
-                      <span class="code-window-title">Transform.m</span>
-                  </div>
-                  <div class="code-window-body">
-                      <pre><code id="typed-code" class="code-content"></code></pre>
-                  </div>
-              </div>
-
-              <!-- Stats Grid -->
-              <div class="stats-grid">
-                  <div class="stat-card">
-                      <div class="stat-value" data-target="50">0</div>
-                      <div class="stat-label">Projets réalisés</div>
-                  </div>
-                  <div class="stat-card">
-                      <div class="stat-value" data-target="95">0</div>
-                      <div class="stat-label">Satisfaction client</div>
-                  </div>
-                  <div class="stat-card">
-                      <div class="stat-value" data-target="24">0</div>
-                      <div class="stat-label">Heures économisées</div>
-                  </div>
-                  <div class="stat-card">
-                      <div class="stat-value" data-target="100">0</div>
-                      <div class="stat-label">Sur mesure</div>
-                  </div>
-              </div>
-
-              <!-- Owl Mascot -->
-              <img src="assets/images/owl_dark.png" alt="OwlHub Mascot" class="owl-mascot" id="owl-mascot">
-          </div>
-      </div>
-  </section>
-
-
-    <!-- Footer -->
+    <!-- FOOTER -->
     <footer class="footer">
-        <div class="footer-container">
-            <div class="footer-brand">
-                <div class="footer-logo">
-                    <span class="logo-owl">Owl</span><span class="logo-hub">Hub</span>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>OwlHub</h3>
+                    <p>Votre partenaire Business Intelligence</p>
                 </div>
-                <p class="footer-tagline">Transformez vos données en décisions stratégiques</p>
-            </div>
-
-            <div class="footer-links">
-                <div class="footer-column">
-                    <h4>Navigation</h4>
+                <div class="footer-section">
+                    <h4>Liens rapides</h4>
                     <ul>
-                        <li><a href="index.html" class="footer-link">Accueil</a></li>
-                        <li><a href="offres.html" class="footer-link">Offres</a></li>
-                        <li><a href="methode.html" class="footer-link">Méthode</a></li>
+                        <li><a href="#services">Services</a></li>
+                        <li><a href="#about">À propos</a></li>
+                        <li><a href="#contact">Contact</a></li>
                     </ul>
                 </div>
-                <div class="footer-column">
-                    <h4>Services</h4>
-                    <ul>
-                        <li><a href="power-bi.html" class="footer-link">Power BI</a></li>
-                        <li><a href="a-propos.html" class="footer-link">À propos</a></li>
-                        <li><a href="contact.html" class="footer-link">Contact</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
+                <div class="footer-section">
                     <h4>Contact</h4>
-                    <ul>
-                        <li><a href="mailto:contact@owlhub.fr" class="footer-link">contact@owlhub.fr</a></li>
-                        <li><a href="tel:+33123456789" class="footer-link">+33 1 23 45 67 89</a></li>
-                    </ul>
+                    <p>contact@owlhub.fr</p>
+                    <p>+33 1 23 45 67 89</p>
                 </div>
             </div>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; 2024 OwlHub Dashboard. Tous droits réservés.</p>
+            <div class="footer-bottom">
+                <p>&copy; 2024 OwlHub. Tous droits réservés.</p>
+            </div>
         </div>
     </footer>
 
-    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>  ← ✅ CDN officiel
-    <script src="assets/js/typing.js"></script>              ← ✅ Animation Code M
-    <script src="assets/js/animated-word.js"></script>
-    <script src="assets/js/hamburger.js"></script>           ← ✅ Menu burger mobile
-    <script src="assets/js/stats.js"></script>               ← ✅ Compteurs
-    <script src="assets/js/theme.js"></script>               ← ✅ Mode sombre
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <script src="assets/js/particles-config.js"></script>
+    <script src="assets/js/theme.js"></script>
+    <script src="assets/js/code-animation.js"></script>
+    <script src="assets/js/stats-counter.js"></script>
+    <script src="assets/js/rotating-text.js"></script>
+    <script src="assets/js/main.js"></script> <!-- ✅ NOUVEAU -->
 </body>
 </html>
