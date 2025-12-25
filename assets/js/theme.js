@@ -1,111 +1,55 @@
-/**
- * theme.js - Gestion du thème et du menu mobile
- */
+// theme.js - Gestion du thème clair/sombre
+class ThemeManager {
+    constructor() {
+        this.themeToggle = document.getElementById('theme-toggle');
+        this.currentTheme = localStorage.getItem('theme') || 'dark';
 
-// ============================================
-// GESTION DU THÈME
-// ============================================
-const themeToggle = {
-    button: null,
+        this.init();
+    }
 
     init() {
-        this.button = document.getElementById('theme-toggle');
-        if (!this.button) return;
+        // Appliquer le thème sauvegardé
+        this.applyTheme(this.currentTheme);
 
-        // Charger le thème sauvegardé
-        const savedTheme = localStorage.getItem('theme') || 'light';
-        document.documentElement.setAttribute('data-theme', savedTheme);
+        // Event listener sur le bouton
+        if (this.themeToggle) {
+            this.themeToggle.addEventListener('click', () => this.toggleTheme());
+        }
+    }
 
-        // Listener
-        this.button.addEventListener('click', () => this.toggle());
+    applyTheme(theme) {
+        document.documentElement.setAttribute('data-theme', theme);
+        localStorage.setItem('theme', theme);
+        this.currentTheme = theme;
 
-        console.log('✅ Theme toggle initialisé');
-    },
+        // Changer l'image du hibou si présente
+        this.updateOwlImage(theme);
+    }
 
-    toggle() {
-        const currentTheme = document.documentElement.getAttribute('data-theme');
-        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-
-        document.documentElement.setAttribute('data-theme', newTheme);
-        localStorage.setItem('theme', newTheme);
+    toggleTheme() {
+        const newTheme = this.currentTheme === 'dark' ? 'light' : 'dark';
+        this.applyTheme(newTheme);
 
         // Animation du bouton
-        this.button.style.transform = 'rotate(360deg)';
+        this.themeToggle.style.transform = 'rotate(360deg)';
         setTimeout(() => {
-            this.button.style.transform = 'rotate(0deg)';
+            this.themeToggle.style.transform = 'rotate(0deg)';
         }, 300);
     }
-};
 
-// ============================================
-// MENU MOBILE
-// ============================================
-const mobileNav = {
-    burger: null,
-    nav: null,
-    overlay: null,
-    isOpen: false,
-
-    init() {
-        // Sélectionner les éléments
-        this.burger = document.querySelector('.mobile-menu-toggle');
-        this.nav = document.querySelector('.mobile-nav');
-        this.overlay = document.querySelector('.mobile-overlay');
-
-        if (!this.burger || !this.nav || !this.overlay) {
-            console.warn('⚠️ Éléments mobile manquants');
-            return;
-        }
-
-        // Listeners
-        this.burger.addEventListener('click', () => this.toggle());
-        this.overlay.addEventListener('click', () => this.close());
-
-        // Fermer au clic sur un lien
-        this.nav.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', () => {
-                setTimeout(() => this.close(), 300);
-            });
+    updateOwlImage(theme) {
+        const owlImages = document.querySelectorAll('.hero-owl, .page-owl, #page-owl');
+        owlImages.forEach(img => {
+            if (theme === 'dark') {
+                img.src = img.src.replace('owl_light.png', 'owl_dark.png');
+            } else {
+                img.src = img.src.replace('owl_dark.png', 'owl_light.png');
+            }
         });
-
-        console.log('✅ Menu mobile initialisé');
-    },
-
-    toggle() {
-        this.isOpen ? this.close() : this.open();
-    },
-
-    open() {
-        this.isOpen = true;
-        this.burger.classList.add('active');
-        this.nav.classList.add('active');
-        this.overlay.classList.add('active');
-        document.body.style.overflow = 'hidden'; // Bloquer le scroll
-        console.log('📱 Menu ouvert');
-    },
-
-    close() {
-        this.isOpen = false;
-        this.burger.classList.remove('active');
-        this.nav.classList.remove('active');
-        this.overlay.classList.remove('active');
-        document.body.style.overflow = ''; // Restaurer le scroll
-        console.log('📱 Menu fermé');
     }
-};
+}
 
-// ============================================
-// INITIALISATION AU CHARGEMENT
-// ============================================
+// Initialisation
 document.addEventListener('DOMContentLoaded', () => {
-    console.log('🦉 Initialisation theme.js');
-
-    themeToggle.init();
-    mobileNav.init();
-
-    console.log('✅ theme.js chargé');
+    new ThemeManager();
 });
-
-// Export pour debug
-window.mobileNav = mobileNav;
-window.themeToggle = themeToggle;

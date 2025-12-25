@@ -2,7 +2,7 @@
 <html lang="fr" data-theme="dark">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>OwlHub Dashboard - Tableaux de bord Power BI sur mesure</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -10,52 +10,30 @@
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
-<header>
-        <div class="container">
-            <div class="logo">
-                <img src="assets/images/owl-logo.png" alt="OwlHub Logo" class="logo-img">
-                <span>OwlHub</span>
-            </div>
-
-            <nav class="desktop-nav">
-                <a href="index.html"><i class="fas fa-home"></i> Accueil</a>
-                <a href="offres.html"><i class="fas fa-briefcase"></i> Offres</a>
-                <a href="methodologie.html"><i class="fas fa-cogs"></i> Méthodologie</a>
-                <a href="powerbi.html"><i class="fas fa-chart-line"></i> Power BI</a>
-                <a href="a-propos.html"><i class="fas fa-users"></i> À propos</a>
-                <a href="statistiques.html"><i class="fas fa-chart-bar"></i> Statistiques</a>
-                <a href="contact.html"><i class="fas fa-envelope"></i> Contact</a>
-            </nav>
-
-            <div class="header-actions">
-                <button id="themeToggle" class="theme-toggle" aria-label="Changer de thème">
-                    <i class="fas fa-sun"></i>
-                </button>
-                <button class="burger" id="burgerBtn" aria-label="Menu">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </button>
-            </div>
-        </div>
-
-        <!-- Mobile Navigation -->
-        <nav class="mobile-nav" id="mobileNav">
-            <a href="index.html"><i class="fas fa-home"></i> Accueil</a>
-            <a href="offres.html"><i class="fas fa-briefcase"></i> Offres</a>
-            <a href="methodologie.html"><i class="fas fa-cogs"></i> Méthodologie</a>
-            <a href="powerbi.html"><i class="fas fa-chart-line"></i> Power BI</a>
-            <a href="a-propos.html"><i class="fas fa-users"></i> À propos</a>
-            <a href="statistiques.html"><i class="fas fa-chart-bar"></i> Statistiques</a>
-            <a href="contact.html"><i class="fas fa-envelope"></i> Contact</a>
-        </nav>
-    </header>
-
     <canvas id="particles-canvas"></canvas>
 
     <!-- Navigation -->
     <nav class="navbar">
-        
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <span class="logo-owl">Owl</span><span class="logo-hub">Hub</span>
+            </a>
+
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link active">Accueil</a></li>
+                <li><a href="offres.html" class="nav-link">Offres</a></li>
+                <li><a href="methode.html" class="nav-link">Méthode</a></li>
+                <li><a href="power-bi.html" class="nav-link">Power BI</a></li>
+                <li><a href="a-propos.html" class="nav-link">À propos</a></li>
+                <li><a href="contact.html" class="nav-link">Contact</a></li>
+            </ul>
+
+            <div class="nav-actions">
+                <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+                    <span class="theme-icon sun">☀️</span>
+                    <span class="theme-icon moon">🌙</span>
+                </button>
+            </div>
         </div>
     </nav>
 
@@ -87,32 +65,9 @@
                         </div>
                         <span class="code-window-title">Transform.m</span>
                     </div>
-                    <div class="code-window-body"><pre><code>SELECT
-    p.ProductName,
-    SUM(o.Quantity) as TotalSales,
-    SUM(o.Revenue) as TotalRevenue,
-    AVG(o.Margin) as AvgMargin
-FROM
-    Orders o
-INNER JOIN
-    Products p ON o.ProductID = p.ID
-WHERE
-    o.Date >= '2024-01-01'
-GROUP BY
-    p.ProductName
-ORDER BY
-    TotalRevenue DESC;
-
-// Power Query M
-let
-    Source = Sql.Database("server", "db"),
-    FilteredRows = Table.SelectRows(Source,
-        each [Date] >= #date(2024,1,1)),
-    GroupedData = Table.Group(FilteredRows,
-        {"ProductName"},
-        {{"TotalSales", each List.Sum([Quantity])}})
-in
-    GroupedData</code></pre>
+                    <div class="code-window-body">
+                        <pre><code id="typing-code" class="code-content"></code></pre>
+                    </div>
                 </div>
 
                 <!-- Stats Grid -->
@@ -188,111 +143,5 @@ in
     <script src="assets/js/typing.js"></script>
     <script src="assets/js/stats.js"></script>
     <script src="assets/js/theme.js"></script>
-
-    <!-- Transform M Script -->
-    <script>
-    document.addEventListener('keydown', function(e) {
-        if (e.key.toLowerCase() === 'm') {
-            document.body.classList.toggle('matrix-mode');
-
-            // Créer l'effet Matrix
-            if (!document.body.classList.contains('matrix-mode')) {
-                return;
-            }
-
-            const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*()';
-            const elements = document.querySelectorAll('h1, h2, h3, p, a, span, li');
-
-            elements.forEach(el => {
-                const text = el.textContent;
-                let iterations = 0;
-
-                const interval = setInterval(() => {
-                    el.textContent = text.split('').map((char, index) => {
-                        if (index < iterations) {
-                            return text[index];
-                        }
-                        return letters[Math.floor(Math.random() * letters.length)];
-                    }).join('');
-
-                    if (iterations >= text.length) {
-                        clearInterval(interval);
-                    }
-
-                    iterations += 1/3;
-                }, 30);
-            });
-        }
-    });
-    </script>
-    <style>
-    .matrix-mode {
-        background: #000 !important;
-        color: #0f0 !important;
-        font-family: 'Courier New', monospace !important;
-    }
-    .matrix-mode * {
-        color: #0f0 !important;
-        text-shadow: 0 0 5px #0f0 !important;
-    }
-    </style>
-
-
-    <!-- Easter Egg Matrix (Touche M) -->
-    <script>
-    let matrixActive = false;
-
-    document.addEventListener('keydown', function(e) {
-        if (e.key.toLowerCase() === 'm' && !matrixActive) {
-            matrixActive = true;
-            document.body.classList.add('matrix-mode');
-
-            const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*()';
-            const elements = document.querySelectorAll('h1, h2, h3, p, a, span, li, button');
-
-            elements.forEach(el => {
-                const originalText = el.textContent;
-                let iterations = 0;
-
-                const interval = setInterval(() => {
-                    el.textContent = originalText.split('').map((char, index) => {
-                        if (index < iterations) {
-                            return originalText[index];
-                        }
-                        return letters[Math.floor(Math.random() * letters.length)];
-                    }).join('');
-
-                    if (iterations >= originalText.length) {
-                        clearInterval(interval);
-                        matrixActive = false;
-                    }
-
-                    iterations += 1/3;
-                }, 30);
-            });
-
-            // Désactiver après 3 secondes
-            setTimeout(() => {
-                document.body.classList.remove('matrix-mode');
-            }, 3000);
-        }
-    });
-    </script>
-    <style>
-    .matrix-mode {
-        background: #000 !important;
-        color: #0f0 !important;
-        font-family: 'Courier New', monospace !important;
-        transition: all 0.3s ease;
-    }
-    .matrix-mode * {
-        color: #0f0 !important;
-        text-shadow: 0 0 10px #0f0, 0 0 20px #0f0 !important;
-    }
-    .matrix-mode .hero {
-        background: #000 !important;
-    }
-    </style>
-
 </body>
 </html>
