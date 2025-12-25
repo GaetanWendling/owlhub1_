@@ -1,169 +1,74 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OwlHub Dashboard</title>
-
-    <!-- ORDRE CRITIQUE : styles.css EN PREMIER -->
-    <link rel="stylesheet" href="assets/css/styles.css">
-    <link rel="stylesheet" href="assets/css/header.css">
-    <link rel="stylesheet" href="assets/css/hero.css">
-    <link rel="stylesheet" href="assets/css/code-window.css">
-    <link rel="stylesheet" href="assets/css/stats.css">
-    <link rel="stylesheet" href="assets/css/footer.css">
-
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <title>OwlHub - Transformation Digitale</title>
+    <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
+    <canvas id="particles-canvas"></canvas>
 
-
-    <!-- HEADER -->
-    <header class="header">
-        <div class="container">
-            <nav class="nav">
-                <!-- Logo -->
-                <a href="#" class="logo">
-                    <img src="assets/images/owl-logo.png" alt="OwlHub Logo" class="logo-img">
-                    <span class="logo-text">OwlHub</span>
-                </a>
-
-                <!-- Navigation -->
-                <ul class="nav-links">
-                    <li><a href="#" class="nav-link">Accueil</a></li>
-                    <li><a href="#solutions" class="nav-link">Solutions</a></li>
-                    <li><a href="#services" class="nav-link">Services</a></li>
-                    <li><a href="#contact" class="nav-link">Contact</a></li>
-                </ul>
-
-                <!-- Bouton jour/nuit -->
-                <button id="theme-toggle" class="theme-toggle" aria-label="Changer de thème">
-                    <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="5"></circle>
-                        <line x1="12" y1="1" x2="12" y2="3"></line>
-                        <line x1="12" y1="21" x2="12" y2="23"></line>
-                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-                        <line x1="1" y1="12" x2="3" y2="12"></line>
-                        <line x1="21" y1="12" x2="23" y2="12"></line>
-                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-                    </svg>
-                    <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-                    </svg>
-                </button>
-
-                <!-- Menu burger mobile -->
-                <button class="mobile-menu-toggle" aria-label="Menu">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </button>
-            </nav>
-        </div>
+    <header>
+        <nav>
+            <a href="#" class="logo">🦉 OwlHub</a>
+            <ul class="nav-links">
+                <li><a href="#hero">Accueil</a></li>
+                <li><a href="methode.html">Méthode</a></li>
+                <li><a href="offres.html">Offres</a></li>
+                <li><a href="power-bi.html">Power BI</a></li>
+                <li><a href="a-propos.html">À propos</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <button class="theme-toggle">☀️</button>
+            <button class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </nav>
     </header>
 
-    <!-- HERO SECTION -->
-    <section class="hero">
-        <div class="container">
-            <div class="hero-content">
-                <h1 class="hero-title">
-                    Transformez vos données en
-                    <span class="rotating-text" id="rotating-text">insights</span>
-                </h1>
-                <p class="hero-subtitle">
-                    Solutions BI sur mesure avec Power BI, Tableau et SQL Server
-                </p>
-                <div class="hero-cta">
-                    <a href="#contact" class="btn btn-primary">Démarrer maintenant</a>
-                    <a href="#services" class="btn btn-outline">Découvrir nos services</a>
-                </div>
-            </div>
+    <section id="hero" class="hero">
+        <div class="hero-content">
+            <h1>Transformez vos idées en solutions digitales</h1>
+            <p>Automatisation • Power BI • Web • Sur-mesure</p>
+            <a href="contact.html" class="cta-button">Commencer maintenant</a>
+        </div>
+    </section>
 
-            <!-- Fenêtre de code -->
-            <div class="code-window">
-                <div class="code-header">
-                    <div class="code-dots">
-                        <span class="dot dot-red"></span>
-                        <span class="dot dot-yellow"></span>
-                        <span class="dot dot-green"></span>
-                    </div>
-                    <span class="code-title">owlhub_dashboard.sql</span>
-                </div>
-                <div class="code-body">
-                    <pre><code id="code-content"></code></pre>
-                </div>
+    <section class="stats-section">
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-number" data-target="127">0</div>
+                <div class="stat-label">Projets réalisés</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" data-target="98">0</div>
+                <div class="stat-label">% Satisfaction client</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" data-target="1500">0</div>
+                <div class="stat-label">Heures économisées</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" data-target="100">0</div>
+                <div class="stat-label">% Sur mesure</div>
             </div>
         </div>
     </section>
 
-    <!-- STATS SECTION -->
-    <section class="stats">
-        <div class="container">
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <div class="stat-icon">📊</div>
-                    <div class="stat-number" data-target="150">0</div>
-                    <div class="stat-label">Projets réalisés</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-icon">👥</div>
-                    <div class="stat-number" data-target="50">0</div>
-                    <div class="stat-label">Clients satisfaits</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-icon">⚡</div>
-                    <div class="stat-number" data-target="98">0</div>
-                    <div class="stat-label">% de satisfaction</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-icon">🏆</div>
-                    <div class="stat-number" data-target="10">0</div>
-                    <div class="stat-label">Années d'expérience</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- FOOTER -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3>OwlHub</h3>
-                    <p>Votre partenaire Business Intelligence</p>
-                </div>
-                <div class="footer-section">
-                    <h4>Liens rapides</h4>
-                    <ul>
-                        <li><a href="#services">Services</a></li>
-                        <li><a href="#about">À propos</a></li>
-                        <li><a href="#contact">Contact</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h4>Contact</h4>
-                    <p>contact@owlhub.fr</p>
-                    <p>+33 1 23 45 67 89</p>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2024 OwlHub. Tous droits réservés.</p>
-            </div>
-        </div>
+    <footer>
+        <p>&copy; 2025 OwlHub. Tous droits réservés.</p>
     </footer>
 
-    <!-- Scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <div class="owl-container">
+        <img src="assets/images/owl_dark.png" alt="OwlHub Mascotte">
+    </div>
+
     <script src="assets/js/particles-config.js"></script>
+    <script src="assets/js/main.js"></script>
     <script src="assets/js/theme.js"></script>
-    <script src="assets/js/code-animation.js"></script>
-    <script src="assets/js/stats-counter.js"></script>
-    <script src="assets/js/rotating-text.js"></script>
-    <script src="assets/js/main.js"></script> <!-- ✅ NOUVEAU -->
+    <script src="assets/js/hamburger.js"></script>
 </body>
 </html>

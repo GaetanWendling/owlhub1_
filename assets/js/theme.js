@@ -1,27 +1,42 @@
-// ============================================
-// GESTION DU THÈME JOUR/NUIT
-// ============================================
+// GESTION DU THÈME
+const themeToggle = document.querySelector('.theme-toggle');
+const htmlElement = document.documentElement;
+const owlImage = document.querySelector('.owl-container img');
 
-document.addEventListener('DOMContentLoaded', function() {
-    const themeToggle = document.getElementById('theme-toggle');
-    const html = document.documentElement;
+const savedTheme = localStorage.getItem('theme') || 'dark';
+htmlElement.setAttribute('data-theme', savedTheme);
+updateThemeButton(savedTheme);
+updateOwlImage(savedTheme);
 
-    // Récupérer le thème sauvegardé (défaut: light)
-    const savedTheme = localStorage.getItem('theme') || 'light';
-    html.setAttribute('data-theme', savedTheme);
+console.log(`🎨 Thème actif:  $ {savedTheme}`);
 
-    console.log('🎨 Thème initial:', savedTheme);
+if (themeToggle) {
+    themeToggle.addEventListener('click', () => {
+        const currentTheme = htmlElement.getAttribute('data-theme');
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
 
-    // Toggle theme
-    themeToggle.addEventListener('click', function() {
-        const currentTheme = html.getAttribute('data-theme');
-        const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-
-        html.setAttribute('data-theme', newTheme);
+        htmlElement.setAttribute('data-theme', newTheme);
         localStorage.setItem('theme', newTheme);
+        updateThemeButton(newTheme);
+        updateOwlImage(newTheme);
 
-        console.log('🔄 Thème changé:', newTheme);
+        console.log(`🔄 Thème changé:  $ {newTheme}`);
 
-        // Les particules se mettront à jour automatiquement via MutationObserver
+        if (typeof updateParticles === 'function') {
+            updateParticles(newTheme);
+        }
     });
-});
+    console.log('✅ Bouton thème initialisé');
+}
+
+function updateThemeButton(theme) {
+    if (!themeToggle) return;
+    themeToggle.textContent = theme === 'dark' ? '☀️' : '🌙';
+}
+
+function updateOwlImage(theme) {
+    if (!owlImage) return;
+    owlImage.src = theme === 'dark'
+        ? 'assets/images/owl_dark.png'
+        : 'assets/images/owl_light.png';
+}
